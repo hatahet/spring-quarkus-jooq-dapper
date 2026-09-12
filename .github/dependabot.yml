@@ -1,0 +1,183 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: maven
+    directory: /quarkus3
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "io.quarkus.platform:*"
+        update-types:
+          - "version-update:semver-major"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: maven
+    directory: /quarkus3-spring-compatibility
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "io.quarkus.platform:*"
+        update-types:
+          - "version-update:semver-major"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: maven
+    directory: /quarkus3-virtual
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "io.quarkus.platform:*"
+        update-types:
+          - "version-update:semver-major"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: maven
+    directory: /springboot3
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "io.opentelemetry.instrumentation:*"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: maven
+    directory: /springboot4
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "io.opentelemetry.instrumentation:*"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: nuget
+    directory: /aspnet10
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    cooldown:
+      default-days: 3
+
+  # OOTB branch
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: ootb
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: maven
+    directory: /quarkus3
+    target-branch: ootb
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "io.quarkus.platform:*"
+        update-types:
+          - "version-update:semver-major"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: maven
+    directory: /quarkus3-spring-compatibility
+    target-branch: ootb
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "io.quarkus.platform:*"
+        update-types:
+          - "version-update:semver-major"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: maven
+    directory: /quarkus3-virtual
+    target-branch: ootb
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "io.quarkus.platform:*"
+        update-types:
+          - "version-update:semver-major"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: maven
+    directory: /springboot3
+    target-branch: ootb
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+        update-types:
+          - "version-update:semver-major"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: maven
+    directory: /springboot4
+    target-branch: ootb
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    ignore:
+      - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+        update-types:
+          - "version-update:semver-major"
+    cooldown:
+      default-days: 3
+
+  - package-ecosystem: nuget
+    directory: /aspnet10
+    target-branch: ootb
+    schedule:
+      interval: weekly
+    labels:
+      - "version-upgrade"
+    cooldown:
+      default-days: 3

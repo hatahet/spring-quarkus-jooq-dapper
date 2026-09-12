@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    username: fruits
+    password: fruits
+    url: jdbc:postgresql://localhost:5432/fruits
+  jooq:
+    sql-dialect: postgres
+  jackson:
+    default-property-inclusion: non_empty
+  sql:
+    init:
+      mode: always

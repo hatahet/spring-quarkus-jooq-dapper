@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: springboot3
+  datasource:
+    username: fruits
+    password: fruits
+    url: jdbc:postgresql://localhost:5432/fruits
+    hikari:
+      # @simasch: Sets the jdbc pool size to be the same that Quarkus uses
+      # see https://github.com/quarkusio/spring-quarkus-perf-comparison/pull/114
+      maximum-pool-size: 50
+  jackson:
+    default-property-inclusion: non_empty
+  jooq:
+    sql-dialect: postgres
+
+otel:
+  traces:
+    "sampler": traceidratio
+    "sampler.arg": 0.1
+
+# Turn on prometheus actuator endpoint
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+
+# In order to remove errors and allow the Spring application to handle the load without errors
+# See https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/60#issuecomment-3724614394
+# for a conversation about why this setting is set this way
+server:
+  tomcat:
+    max-keep-alive-requests: -1

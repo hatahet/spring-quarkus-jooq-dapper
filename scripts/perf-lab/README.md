@@ -1,0 +1,394 @@
+# Benchmarks
+
+This is the main entrypoint for running benchmarks.
+
+> [!IMPORTANT]
+> Please read the [Running performance comparisons documentation](../../README.md#running-performance-comparisons)!!! This is super important to understand how benchmarks work!
+
+Now that you've read that (if you haven't, please go do so now) here's the details on how to run on a single machine, with solid automation and detailed reporting.
+
+The main tool for scripting the automation is [qDup](https://github.com/Hyperfoil/qDup). qDup supports running on the local machine as well as on a remote host.
+
+The [`main.yml`](main.yml) file is the main entrypoint for qDup. It defines the sequence of steps to run and ensures all the required tools are installed on the host the benchmark is being run on.
+
+> [!NOTE]
+> This is also the same benchmark we run in our controlled performance lab environment. We have dedicated hardware for this purpose.
+
+The main entrypoint is the `run-benchmarks.sh` script. This script has many options that can be passed in. Run `./run-benchmarks.sh -h` to see them all.
+
+> [!TIP]
+> This automation currently supports Linux and macOS hosts. Running on Windows Subsystem for Linux (WSL) has not been tested. Running on Windows directly is not supported.
+> 
+> ALSO - it only supports `bash` shell on both local & remote hosts.
+
+The script has these dependencies:
+- [git](https://github.com/git-guides/install-git)
+- [jbang](https://www.jbang.dev/download)
+- [jq](https://stedolan.github.io/jq)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (required for the default `aspnet10` runtime)
+- bash shell
+
+> [!IMPORTANT]
+> There are several requirements to run the benchmarks:
+> 1. The host must have `bash` shell installed.
+> 2. If running on a remote host, the ssh connection to the remote host must be configured to allow [passwordless login](https://www.strongdm.com/blog/ssh-passwordless-login).
+> 3. If running on Linux, the user on the host (local or remote) must have [passwordless sudo privileges](https://unix.stackexchange.com/questions/468416/setting-up-passwordless-sudo-on-linux-distributions).
+>     - If this isn't an option, then the host must have the following software installed (see [requirements.yml](helpers/requirements.yml) for details):
+>         - [SDKMAN!](https://sdkman.io/)
+>             - `sdk i java <-j flag passed to the script>`
+>             - `sdk i java <-g flag passed to the script>`
+>             - `export GRAALVM_HOME=$(sdk home java <-g flag passed to the script>)`
+>         - [git](https://github.com/git-guides/install-git)
+>         - [jbang](https://www.jbang.dev/download)
+>         - [jq](https://stedolan.github.io/jq)
+>         - gcc
+>         - [NVM](https://github.com/nvm-sh/nvm/blob/master/README.md)
+>             - `nvm install --lts`
+>             - `nvm use --lts`
+
+## Usage
+
+```bash
+./run-benchmarks.sh [options]
+```
+
+### Options
+
+| Option | Parameter | Description | Default |
+|--------|-----------|-------------|---------|
+| `--cpus-app` | `<CPUS_APP>` | CPU list for the application | `0-3` |
+| `--cpus-db` | `<CPUS_DB>` | CPU list for the database | `4-6` |
+| `--cpus-first-request` | `<CPUS_FIRST_REQUEST>` | CPU for time-to-first-request measurement | `10` |
+| `--cpus-load-gen` | `<CPUS_LOAD_GEN>` | CPU list for the load generator | `10-12` |
+| `--cpus-monitoring` | `<CPUS_MONITORING>` | CPU for monitoring | `13` |
+| `--cpus-otel` | `<CPUS_OTEL>` | CPU list for the OpenTelemetry stack | `7-9` |
+| `--description` | `<DESCRIPTION>` | A human-readable description to be added to the run output | |
+| `--drop-fs-caches` | | Purge/drop OS filesystem caches between iterations | |
+| `--extra-qdup-args` | `<EXTRA_QDUP_ARGS>` | Any extra arguments that need to be passed to qDup ahead of the qDup scripts<br/>**NOTE:** This is an advanced option. Make sure you know what you are doing when using it. | |
+| `--graalvm-home` | `<GRAALVM_HOME>` | Path to a locally installed GraalVM/Mandrel distribution<br/>If set, this takes precedence over `--graalvm-version` | |
+| `--graalvm-version` | `<GRAALVM_VERSION>` | The GraalVM version to use if running any native tests (from SDKMAN)<br/>Ignored if `--graalvm-home` is set | `25.0.2-graalce` |
+| `--host` | `<HOST>` | The HOST to run the benchmarks on<br/>`LOCAL` is a keyword that can be used to run everything on the local machine | `LOCAL` |
+| `--iterations` | `<ITERATIONS>` | The number of iterations to run each test | `3` |
+| `--java-home` | `<JAVA_HOME>` | Path to a locally installed Java distribution<br/>If set, this takes precedence over `--java-version` | |
+| `--java-version` | `<JAVA_VERSION>` | The Java version to use (from SDKMAN)<br/>Ignored if `--java-home` is set | `25.0.3-tem` |
+| `--jvm-args` | `<JVM_ARGS>` | Any runtime JVM args to be passed to the apps | `-XX:+UseParallelGC` |
+| `--jvm-memory` | `<JVM_MEMORY>` | JVM Memory setting (i.e. -Xmx -Xmn -Xms) | `-Xms512m -Xmx512m` |
+| `--native-quarkus-build-options` | `<NATIVE_QUARKUS_OPTS>` | Native build options to be passed to Quarkus native build process | |
+| `--native-spring3-build-options` | `<NATIVE_SPRING3_OPTS>` | Native build options to be passed to Spring 3.x native build process | |
+| `--native-spring4-build-options` | `<NATIVE_SPRING4_OPTS>` | Native build options to be passed to Spring 4.x native build process | |
+| `--output-dir` | `<OUTPUT_DIR>` | The directory containing the run output | `/tmp` |
+| `--profiler` | `<PROFILER>` | Enable profiling<br/>Accepted values: `none`, `jfr`, `syncjfr`, `flamegraph`<br/>`jfr` and `flamegraph` use async-profiler. `syncjfr` uses the built-in JVM Java Flight Recorder (JFR). | `none` |
+| `--quarkus-build-config-args` | `<QUARKUS_BUILD_CONFIG_ARGS>` | Quarkus app configuration properties fixed at build time | |
+| `--quarkus-version` | `<QUARKUS_VERSION>` | The Quarkus version to use<br/>**NOTE:** Its a good practice to set this manually to ensure proper version | Whatever version is set in pom.xml of the Quarkus app |
+| `--repo-branch` | `<SCM_REPO_BRANCH>` | The branch in the SCM repo | `main` |
+| `--repo-url` | `<SCM_REPO_URL>` | The SCM repo url | `https://github.com/quarkusio/spring-quarkus-perf-comparison.git` |
+| `--runtimes` | `<RUNTIMES>` | The runtimes to test, separated by commas<br/>Accepted values (1 or more of): `quarkus3-jvm`, `quarkus3-leyden`, `quarkus3-virtual`, `quarkus3-virtual-leyden`, `quarkus3-native`, `spring3-jvm`, `spring3-leyden`, `spring3-virtual`, `spring3-virtual-leyden`, `spring3-jvm-aot`, `spring3-native`, `spring4-jvm`, `spring4-leyden`, `spring4-virtual`, `spring4-virtual-leyden`, `spring4-jvm-aot`, `spring4-native`, `aspnet10` | See [Available Runtimes](#available-runtimes) for defaults |
+| `--run-identifier` | `<RUN_IDENTIFIER>` | An optional identifier for this run to be added to the run output | |
+| `--scenario` | `<SCENARIO>` | The scenario to run<br/>Accepted values: `tuned`, `ootb`<br/>`tuned` applies various performance tuning settings to the JVM and OS (generally from the `main` branch). `ootb` runs with out-of-the-box/default settings (generally from the `ootb` branch). | Depends on `--repo-branch`: `main` → `tuned`, `ootb` → `ootb`, anything else → `tuned` |
+| `--springboot3-version` | `<SPRING_BOOT3_VERSION>` | The Spring Boot 3.x version to use<br/>**NOTE:** Its a good practice to set this manually to ensure proper version | Whatever version is set in pom.xml of the Spring Boot 3 app |
+| `--springboot4-version` | `<SPRING_BOOT4_VERSION>` | The Spring Boot 4.x version to use<br/>**NOTE:** Its a good practice to set this manually to ensure proper version | Whatever version is set in pom.xml of the Spring Boot 4 app |
+| `--tests` | `<TESTS_TO_RUN>` | The tests to run, separated by commas<br/>Accepted values (1 or more of): `measure-build-times`, `measure-time-to-first-request`, `measure-rss`, `run-load-test`<br/>**NOTE:** Build times (`measure-build-times`) are always measured during the build phase | `measure-time-to-first-request,measure-rss,run-load-test` |
+| `--use-container-host-network` | | Use host networking instead of port mapping on infra containers | |
+| `--user` | `<USER>` | The user on `<HOST>` to run the benchmark | |
+| `--wait-time` | `<WAIT_TIME>` | Wait time (in seconds) to wait for things like application startup | `20` |
+
+### Proper CPU affinity
+
+Proper CPU affinity is important for the performance of the benchmark to ensure proper isolation of the workloads.
+
+You need to have enough cpus in order to run this script. We recommend 14 cpus minimum allocated as follows:
+- 4 CPUs for the application
+- 3 CPUs for the database
+- 3 CPUs for the OpenTelemetry stack
+- 3 CPUs for the load generator
+- 1 CPU for monitoring the system during test execution
+- 1 CPU for the time to first request measurement
+    - **NOTE:** This CPU can share one of the cpus from the load generator, since the TTFR & load measurements are not done at the same time.
+
+Using a tool like `lscpu -e` can help you understand how many CPUs you have available and how best to allocate them. It's important to avoid sharing physical cores between workloads and keep workloads on the same NUMA node when possible.
+
+For example, `lscpu -e` reports the following in our lab environment:
+
+```
+CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
+  0    0      0    0 0:0:0:0          yes 3900.0000 1000.0000 3900.0000
+  1    1      1    1 16:16:16:1       yes 3900.0000 1000.0000 3900.0000
+  2    0      0    2 7:7:7:0          yes 3900.0000 1000.0000 3900.0000
+  3    1      1    3 23:23:23:1       yes 3900.0000 1000.0000 3900.0000
+  4    0      0    4 1:1:1:0          yes 3900.0000 1000.0000 3900.0000
+  5    1      1    5 17:17:17:1       yes 3900.0000 1000.0000 3900.0000
+  6    0      0    6 6:6:6:0          yes 3900.0000 1000.0000 3900.0000
+  7    1      1    7 22:22:22:1       yes 3900.0000 1000.0000 3900.0000
+  8    0      0    8 2:2:2:0          yes 3900.0000 1000.0000 3900.0000
+  9    1      1    9 18:18:18:1       yes 3900.0000 1000.0000 3900.0000
+ 10    0      0   10 5:5:5:0          yes 3900.0000 1000.0000 3900.0000
+ 11    1      1   11 21:21:21:1       yes 3900.0000 1000.0000 2800.6411
+ 12    0      0   12 3:3:3:0          yes 3900.0000 1000.0000 3900.0000
+ 13    1      1   13 19:19:19:1       yes 3900.0000 1000.0000 3900.0000
+ 14    0      0   14 4:4:4:0          yes 3900.0000 1000.0000 3900.0000
+ 15    1      1   15 20:20:20:1       yes 3900.0000 1000.0000 2799.9961
+ 16    0      0   16 8:8:8:0          yes 3900.0000 1000.0000 3900.0000
+ 17    1      1   17 24:24:24:1       yes 3900.0000 1000.0000 3900.0000
+ 18    0      0   18 15:15:15:0       yes 3900.0000 1000.0000 3900.0000
+ 19    1      1   19 31:31:31:1       yes 3900.0000 1000.0000 3900.0000
+ 20    0      0   20 9:9:9:0          yes 3900.0000 1000.0000 3900.0000
+ 21    1      1   21 25:25:25:1       yes 3900.0000 1000.0000 3900.0000
+ 22    0      0   22 14:14:14:0       yes 3900.0000 1000.0000 3900.0000
+ 23    1      1   23 30:30:30:1       yes 3900.0000 1000.0000 3900.0000
+ 24    0      0   24 10:10:10:0       yes 3900.0000 1000.0000 3900.0000
+ 25    1      1   25 26:26:26:1       yes 3900.0000 1000.0000 3900.0000
+ 26    0      0   26 13:13:13:0       yes 3900.0000 1000.0000 3900.0000
+ 27    1      1   27 29:29:29:1       yes 3900.0000 1000.0000 3900.0000
+ 28    0      0   28 11:11:11:0       yes 3900.0000 1000.0000 3900.0000
+ 29    1      1   29 27:27:27:1       yes 3900.0000 1000.0000 3900.0000
+ 30    0      0   30 12:12:12:0       yes 3900.0000 1000.0000 3900.0000
+ 31    1      1   31 28:28:28:1       yes 3900.0000 1000.0000 2801.5439
+ 32    0      0    0 0:0:0:0          yes 3900.0000 1000.0000 3900.0000
+ 33    1      1    1 16:16:16:1       yes 3900.0000 1000.0000 3900.0000
+ 34    0      0    2 7:7:7:0          yes 3900.0000 1000.0000 3900.0000
+ 35    1      1    3 23:23:23:1       yes 3900.0000 1000.0000 3900.0000
+ 36    0      0    4 1:1:1:0          yes 3900.0000 1000.0000 3900.0000
+ 37    1      1    5 17:17:17:1       yes 3900.0000 1000.0000 3900.0000
+ 38    0      0    6 6:6:6:0          yes 3900.0000 1000.0000 3900.0000
+ 39    1      1    7 22:22:22:1       yes 3900.0000 1000.0000 3900.0000
+ 40    0      0    8 2:2:2:0          yes 3900.0000 1000.0000 3900.0000
+ 41    1      1    9 18:18:18:1       yes 3900.0000 1000.0000 3900.0000
+ 42    0      0   10 5:5:5:0          yes 3900.0000 1000.0000 3900.0000
+ 43    1      1   11 21:21:21:1       yes 3900.0000 1000.0000 3900.0000
+ 44    0      0   12 3:3:3:0          yes 3900.0000 1000.0000 3900.0000
+ 45    1      1   13 19:19:19:1       yes 3900.0000 1000.0000 2800.0010
+ 46    0      0   14 4:4:4:0          yes 3900.0000 1000.0000 3900.0000
+ 47    1      1   15 20:20:20:1       yes 3900.0000 1000.0000 3900.0000
+ 48    0      0   16 8:8:8:0          yes 3900.0000 1000.0000 3900.0000
+ 49    1      1   17 24:24:24:1       yes 3900.0000 1000.0000 3900.0000
+ 50    0      0   18 15:15:15:0       yes 3900.0000 1000.0000 3900.0000
+ 51    1      1   19 31:31:31:1       yes 3900.0000 1000.0000 3900.0000
+ 52    0      0   20 9:9:9:0          yes 3900.0000 1000.0000 3900.0000
+ 53    1      1   21 25:25:25:1       yes 3900.0000 1000.0000 3900.0000
+ 54    0      0   22 14:14:14:0       yes 3900.0000 1000.0000 3900.0000
+ 55    1      1   23 30:30:30:1       yes 3900.0000 1000.0000 3900.0000
+ 56    0      0   24 10:10:10:0       yes 3900.0000 1000.0000 3900.0000
+ 57    1      1   25 26:26:26:1       yes 3900.0000 1000.0000 3900.0000
+ 58    0      0   26 13:13:13:0       yes 3900.0000 1000.0000 3900.0000
+ 59    1      1   27 29:29:29:1       yes 3900.0000 1000.0000 3900.0000
+ 60    0      0   28 11:11:11:0       yes 3900.0000 1000.0000 3900.0000
+ 61    1      1   29 27:27:27:1       yes 3900.0000 1000.0000 3900.0000
+ 62    0      0   30 12:12:12:0       yes 3900.0000 1000.0000 3900.0000
+ 63    1      1   31 28:28:28:1       yes 3900.0000 1000.0000 3900.0000
+```
+
+We can make some assumptions from looking at the `lscpu -e` output:
+
+The system has `64` logical CPUs total
+- The table has 64 rows (CPU 0 through CPU 63), one per logical CPU.
+
+There are `2` sockets / `2` [NUMA](https://en.wikipedia.org/wiki/Non-uniform_memory_access) nodes
+- The `SOCKET` column contains only values `0` and `1`, and the `NODE` column mirrors it exactly 
+- There are 2 physical sockets, each corresponding to one NUMA node
+
+There are `32` physical cores (`16` per socket)
+- The CORE column lists values 0–31, but each value appears exactly twice across the full table.
+- That repetition is the hyperthreading signature: one physical core → two logical CPUs.
+    - 64 logical CPUs ÷ 2 = 32 physical cores, split evenly as 16 per socket.
+
+Hyperthreading sibling pairing (N and N+32)
+- CPUs `0–31` and CPUs `32–63` share identical `CORE` and cache (L1d:L1i:L2:L3) values in pairs (e.g., CPU 0 and CPU 32 both map to CORE 0 with cache set 0:0:0:0), confirming the sibling relationship.
+
+Even/odd CPU index → Socket 0 / Socket 1
+- Looking at the `SOCKET` column, even-indexed CPUs (0, 2, 4, …, 30 and their siblings 32, 34, …, 62) all belong to Socket 0, while odd-indexed CPUs (1, 3, 5, …, 31 and siblings 33, 35, …, 63) belong to Socket 1.
+
+**Key principle:** Avoid sharing physical cores between workloads (no hyperthreading siblings across workload boundaries), and keep workloads on the same NUMA node when possible.
+
+**Recommended allocation** (using whole physical cores, avoiding hyperthreading siblings across workloads):
+
+| Workload                      | CPUs       | NUMA Node |
+|-------------------------------|------------|-----------|
+| Application (4 CPUs)          | `2,4,6,8`  | Socket 0  |
+| Database (3 CPUs)             | `10,12,14` | Socket 0  |
+| OTel stack (3 CPUs)           | `16,18,20` | Socket 0  |
+| Load generator (3 CPUs)       | `22,24,26` | Socket 0  |
+| System monitor (1 CPU)        | `28`       | Socket 0  |
+| Time-to-first-request (1 CPU) | `22`       | Socket 0  |
+
+**Rationale:**
+- All workloads are on Socket 0 (same NUMA node).
+- Leave CPU 0 (and its sibling 32) entirely free for the OS and IRQ handling. All 15 remaining Socket 0 physical cores cover the workload exactly.
+- The **application** gets Socket 0 cores to benefit from shared L3 cache with the **database** (also Socket 0) — this minimizes cross-NUMA latency for DB calls.
+- The **OTel stack** and **database** stay on Socket 0 too, close to the app that generates telemetry data.
+- The time to first request (TTFR) workload can share one of the same CPUs as the load generator because those two tests never run at the same time.
+- **No hyperthreading siblings are shared** between workloads, eliminating contention on shared execution units, L1/L2 caches.
+
+This approach uses 14 out of 32 physical cores (no hyperthreading), leaving the remaining cores free for the OS and other system processes. This is also why the defaults are set the way they are
+
+### Available Runtimes
+
+The `--runtimes` option accepts one or more of the following values (comma-separated):
+
+- `quarkus3-jvm` - [Quarkus 3](../../quarkus3) on JVM
+- `quarkus3-leyden` - [Quarkus 3](../../quarkus3) on JVM with [Project Leyden](https://openjdk.org/projects/leyden/) (CDS/AOT)
+- `quarkus3-virtual` - [Quarkus 3](../../quarkus3-virtual) on JVM with virtual threads
+- `quarkus3-virtual-leyden` - [Quarkus 3](../../quarkus3-virtual) on JVM with virtual threads and [Project Leyden](https://openjdk.org/projects/leyden/) (CDS/AOT)
+- `quarkus3-native` - [Quarkus 3](../../quarkus3) native executable
+- `spring3-jvm` - [Spring Boot 3](../../springboot3) on JVM
+- `spring3-leyden` - [Spring Boot 3](../../springboot3) on JVM with [Project Leyden](https://openjdk.org/projects/leyden/) (CDS/AOT)
+- `spring3-virtual` - [Spring Boot 3](../../springboot3) on JVM with virtual threads
+- `spring3-virtual-leyden` - [Spring Boot 3](../../springboot3) on JVM with virtual threads and [Project Leyden](https://openjdk.org/projects/leyden/) (CDS/AOT)
+- `spring3-jvm-aot` - [Spring Boot 3](../../springboot3) on JVM with Spring AOT compilation
+- `spring3-native` - [Spring Boot 3](../../springboot3) native executable
+- `spring4-jvm` - [Spring Boot 4](../../springboot4) on JVM
+- `spring4-leyden` - [Spring Boot 4](../../springboot4) on JVM with [Project Leyden](https://openjdk.org/projects/leyden/) (CDS/AOT)
+- `spring4-virtual` - [Spring Boot 4](../../springboot4) on JVM with virtual threads
+- `spring4-virtual-leyden` - [Spring Boot 4](../../springboot4) on JVM with virtual threads and [Project Leyden](https://openjdk.org/projects/leyden/) (CDS/AOT)
+- `spring4-jvm-aot` - [Spring Boot 4](../../springboot4) on JVM with Spring AOT compilation
+- `spring4-native` - [Spring Boot 4](../../springboot4) native executable
+- `aspnet10` - [ASP.NET Core](../../aspnet10) on .NET 10 with Dapper
+
+**Default:** All runtimes except `spring3-jvm-aot` and `spring4-jvm-aot` are tested. To include AOT variants, pass them explicitly via `--runtimes`. The JVM profilers are not supported for `aspnet10`; use `--profiler none` when it is selected.
+
+### Available Tests
+
+The `--tests` option accepts one or more of the following values (comma-separated):
+
+| Test Name                       | Description                                                               | Notes                                                                                                                                                   |
+|---------------------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `measure-time-to-first-request` | Measure startup time to first request                                     |                                                                                                                                                         |
+| `measure-rss`                   | Measure Resident Set Size (memory usage) at startup and after 1st request |                                                                                                                                                         |
+| `run-load-test`                 | Run load testing scenarios                                                | Calculates max throughput, peak RSS, and throughput density (i.e. at max throughput, how many req/sec per MB of memory needed for capacity planning)    |
+
+> [!NOTE]
+> Build times are always measured during the build phase. Each runtime is built upfront (using the number of iterations specified by `--iterations`) and build time metrics are captured automatically. The build artifacts are then cached and reused by all subsequent tests, avoiding redundant rebuilds. `Build RSS`, `# of classes/fields/methods`, and `# of classes/fields/methods using reflection` are also calculated if any of the [`native` runtimes](#available-runtimes) are selected.
+
+**Default:** `measure-time-to-first-request`, `measure-rss`, `run-load-test`
+
+## Output
+The output of the run will be a bunch of files, whose location will be output at the end of the run:
+
+```shell
+09:14:14.985 run-1761051869844 downloading queued downloads
+09:14:14.985 Local.download(hyperfoil@deathstar:22:/tmp/metrics.json,/tmp/20251021_090429/target-host/)
+09:14:15.375 Local.download(hyperfoil@deathstar:22:/home/hyperfoil/spring-quarkus-perf-comparison/logs/*,/tmp/20251021_090429/target-host/)
+Finished in 09:44.800 at /tmp/20251021_090429 
+```
+
+If you examine the output directory:
+
+```shell
+├── run.json
+├── run.log
+└── target-host
+    ├── build-times-quarkus3-jvm-0.log
+    ├── build-times-quarkus3-jvm-1.log
+    ├── build-times-quarkus3-jvm-2.log
+    ├── build-times-quarkus3-native-0.log
+    ├── build-times-quarkus3-native-1.log
+    ├── build-times-quarkus3-native-2.log
+    ├── build-times-spring3-jvm-0.log
+    ├── build-times-spring3-jvm-1.log
+    ├── build-times-spring3-jvm-2.log
+    ├── build-times-spring3-jvm-aot-0.log
+    ├── build-times-spring3-jvm-aot-1.log
+    ├── build-times-spring3-jvm-aot-2.log
+    ├── build-times-spring3-native-0.log
+    ├── build-times-spring3-native-1.log
+    ├── build-times-spring3-native-2.log
+    └── <potentially more .log files based on which tests were run>
+    └── metrics.json
+```
+
+- The `run.json` file contains the run metadata.
+- The `run.log` file contains the full run log.
+- All of the `target-host/*.log` files contain the output from the individual tests.
+- The `target-host/metrics.json` file contains all the recorded metrics.
+
+## Plotting Results
+
+After running benchmarks, you can generate charts from the results using the `plot-results.sh` script. This script uses the graphics generator from the [Quarkus benchmarks repository](https://github.com/quarkusio/benchmarks).
+
+### Usage
+
+```bash
+./plot-results.sh [-i <INPUT_DIR>] [-o <OUTPUT_DIR>] [-b <BENCHMARKS_REPO>] [-c]
+```
+
+### Options
+
+| Option | Description |
+|--------|-------------|
+| `-i <INPUT_DIR>` | The directory containing the benchmark results (must contain `metrics.json`). This is typically the `target-host` subdirectory from your benchmark run output. If not specified, the script will automatically use the most recent run found in `/tmp`. |
+| `-o <OUTPUT_DIR>` | The directory where charts will be generated. Default: `<INPUT_DIR>/charts` |
+| `-b <BENCHMARKS_REPO>` | Path to a local clone of the benchmarks repo. If not provided, the script will clone it to a temporary directory. |
+| `-c` | Force a clean build of the graphics generator. Default: false (reuses existing build if available) |
+| `-h` | Display help message |
+
+### Examples
+
+Generate charts from the most recent benchmark run (automatically finds it in `/tmp`):
+```bash
+./plot-results.sh
+```
+
+Generate charts from a specific benchmark run:
+```bash
+./plot-results.sh -i /tmp/20251021_090429/target-host
+```
+
+Specify a custom output directory:
+```bash
+./plot-results.sh -i /tmp/20251021_090429/target-host -o /tmp/my-charts
+```
+
+Use an existing local clone of the benchmarks repository:
+```bash
+./plot-results.sh -b /path/to/benchmarks
+```
+
+For full information about what charts are generated, see the [chart reference in the graphics repo](https://github.com/quarkusio/benchmarks#chart-reference).
+
+## Examples
+### Basic Local Benchmark
+
+Runs [all the tests](#available-tests) against [all the runtimes](#available-runtimes) using Quarkus version `3.28.4` and Spring Boot version `3.5.6`.
+
+```shell
+./run-benchmarks.sh --quarkus-version 3.28.4 --springboot3-version 3.5.6
+```
+
+### JVM tests only
+
+Runs [all the tests](#available-tests) only the JVM runtimes using Quarkus version `3.30.5` and Spring Boot versions `3.5.9` & `4.0.1`.
+
+```shell
+./run-benchmarks.sh --quarkus-version 3.30.5 --springboot3-version 3.5.9 --springboot4-version 4.0.1 --runtimes 'quarkus3-jvm,spring4-jvm,spring3-jvm'
+```
+
+### Run all the benchmarks on a remote host from a different fork
+
+Runs [all the tests](#available-tests) against [all the runtimes](#available-runtimes) using Quarkus version `3.28.4` and Spring Boot version `3.5.6` on a remote host, while pulling the benchmarks from the `open-benchmarks` branch on the https://github.com/edeandrea/spring-quarkus-perf-comparison.git repo, and running 5 iterations of each test.
+
+```shell
+ ./run-benchmarks.sh \
+    --user <REMOTE_USER> \
+    --host <REMOTE_HOST> \
+    --quarkus-version 3.28.4 \
+    --springboot3-version 3.5.6 \
+    --springboot4-version 4.0.1 \
+    --tests 'measure-time-to-first-request,measure-rss,run-load-test' \
+    --runtimes 'quarkus3-jvm,quarkus3-native,spring4-jvm,spring4-jvm-aot,spring4-native,spring3-jvm,spring3-jvm-aot,spring3-native' \
+    --iterations 5 \
+    --repo-url https://github.com/<some_user>/spring-quarkus-perf-comparison.git \
+    --repo-branch another-branch \
+    --drop-fs-caches
+```
+
+
+## Notes
+
+- **Version Specification:** It is strongly recommended to explicitly set the Quarkus and Spring Boot versions to ensure consistent and reproducible benchmarks.
+- **Remote Execution:** When using a HOST other than `LOCAL`, the `--user` (USER) parameter is required.
+- **Resource Constraints:** The `--cpus-*` options (CPU affinity) and `--jvm-memory` (memory constraints) use `taskset` to control resource allocation. Use `lscpu -e` to understand CPU topology and avoid sharing physical cores between workloads.
+- **Profiling:** When profiling is enabled with `jfr` or `flamegraph`, async-profiler will be used to generate JFR files or flamegraphs. The `syncjfr` option uses the built-in JVM Java Flight Recorder (JFR) instead.
+
+## Exit Codes
+
+- **0** - Successful execution
+- **1** - Error occurred (missing required parameters, invalid options, etc.)

@@ -1,0 +1,209 @@
+name: Build and test
+
+on:
+  push:
+    paths-ignore:
+      - '**/*.md'
+      - '**/images/**'
+      - '.github/dependabot.yml'
+    branches:
+      - main
+      - ootb
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+      - labeled
+    branches:
+      - main
+      - ootb
+    paths-ignore:
+      - '**/*.md'
+      - '**/images/**'
+      - '.github/dependabot.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: "workflow = ${{ github.workflow }}, ref = ${{ github.event.ref }}, pr = ${{ github.event.pull_request.id }}"
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  ci-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      allowed: ${{ steps.check.outputs.allowed }}
+    steps:
+      - name: Check CI authorization for sync PRs
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Always allow non-PR events (push, workflow_dispatch)
+          if [[ "${{ github.event_name }}" != "pull_request" ]]; then
+            echo "allowed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Always allow non-sync PRs
+          IS_SYNC="${{ contains(github.event.pull_request.labels.*.name, 'sync') }}"
+          if [[ "$IS_SYNC" != "true" ]]; then
+            echo "allowed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Allow sync PRs with ci-approved label
+          IS_APPROVED="${{ contains(github.event.pull_request.labels.*.name, 'ci-approved') }}"
+          if [[ "$IS_APPROVED" == "true" ]]; then
+            echo "CI approved via label"
+            echo "allowed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Check if the original commit author has write access
+          AUTHOR=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/commits --jq '.[0].author.login')
+          echo "Commit author: $AUTHOR"
+
+          if [[ -z "$AUTHOR" || "$AUTHOR" == "null" ]]; then
+            echo "Could not determine commit author, blocking CI. Add 'ci-approved' label to override."
+            echo "allowed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          PERM=$(gh api repos/${{ github.repository }}/collaborators/$AUTHOR/permission --jq '.permission')
+          echo "Permission level: $PERM"
+
+          if [[ "$PERM" == "admin" || "$PERM" == "write" || "$PERM" == "maintain" ]]; then
+            echo "allowed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Author $AUTHOR does not have write access. Add 'ci-approved' label to override."
+            echo "allowed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  script-tests:
+    needs: ci-gate
+    if: needs.ci-gate.outputs.allowed == 'true'
+    runs-on: ubuntu-latest
+    name: "Script unit tests"
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - name: Run script tests
+        working-directory: scripts/perf-lab/tests
+        run: ./run-benchmarks-tests.sh
+
+  dotnet-build-test:
+    needs: ci-gate
+    if: needs.ci-gate.outputs.allowed == 'true'
+    runs-on: ubuntu-latest
+    name: "[dotnet-build-test]: aspnet10"
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v6.0.0
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build and test
+        working-directory: aspnet10
+        run: dotnet test AspNet10.slnx --configuration Release
+
+      - name: Publish benchmark artifact
+        working-directory: aspnet10
+        run: dotnet publish src/AspNet10.csproj --configuration Release --no-restore --output target
+
+  jvm-build-test:
+    needs: ci-gate
+    if: needs.ci-gate.outputs.allowed == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java:
+          - '21'
+          - '25'
+        app:
+          - { "name": "springboot3", "dir": "springboot3", "build-args": "", "run-args": "", "app-jar": "target/springboot3.jar", "isSpringLeyden": false }
+          - { "name": "springboot3-leyden", "dir": "springboot3", "build-args": "", "run-args": "-XX:AOTCache=target/app.aot", "app-jar": "target/springboot3.jar", "isSpringLeyden": true }
+          - { "name": "springboot3-virtual", "dir": "springboot3", "build-args": "-Dspring.threads.virtual.enabled=true", "run-args": "", "app-jar": "target/springboot3.jar", "isSpringLeyden": false }
+          - { "name": "springboot3-virtual-leyden", "dir": "springboot3", "build-args": "-Dspring.threads.virtual.enabled=true", "run-args": "-XX:AOTCache=target/app.aot", "app-jar": "target/springboot3.jar", "isSpringLeyden": true }
+          - { "name": "springboot4", "dir": "springboot4", "build-args": "", "run-args": "", "app-jar": "target/springboot4.jar", "isSpringLeyden": false }
+          - { "name": "springboot4-leyden", "dir": "springboot4", "build-args": "", "run-args": "-XX:AOTCache=target/app.aot", "app-jar": "target/springboot4.jar", "isSpringLeyden": true }
+          - { "name": "springboot4-virtual", "dir": "springboot4", "build-args": "-Dspring.threads.virtual.enabled=true", "run-args": "", "app-jar": "target/springboot4.jar", "isSpringLeyden": false }
+          - { "name": "springboot4-virtual-leyden", "dir": "springboot4", "build-args": "-Dspring.threads.virtual.enabled=true", "run-args": "-XX:AOTCache=target/app.aot", "app-jar": "target/springboot4.jar", "isSpringLeyden": true }
+          - { "name": "quarkus3", "dir": "quarkus3", "build-args": "", "run-args": "", "app-jar": "target/quarkus-app/quarkus-run.jar", "isSpringLeyden": false }
+          - { "name": "quarkus3-leyden", "dir": "quarkus3", "build-args": "-Dquarkus.package.jar.aot.enabled=true", "run-args": "-XX:AOTCache=target/quarkus-app/app.aot", "app-jar": "target/quarkus-app/quarkus-run.jar", "isSpringLeyden": false }
+          - { "name": "quarkus3-virtual", "dir": "quarkus3-virtual", "build-args": "", "run-args": "", "app-jar": "target/quarkus-app/quarkus-run.jar", "isSpringLeyden": false }
+          - { "name": "quarkus3-virtual-leyden", "dir": "quarkus3-virtual", "build-args": "-Dquarkus.package.jar.aot.enabled=true", "run-args": "-XX:AOTCache=target/quarkus-app/app.aot", "app-jar": "target/quarkus-app/quarkus-run.jar", "isSpringLeyden": false }
+          - { "name": "quarkus3-spring-compatibility", "dir": "quarkus3-spring-compatibility", "build-args": "", "run-args": "", "app-jar": "target/quarkus-app/quarkus-run.jar", "isSpringLeyden": false }
+        exclude:
+          - java: '21'
+            app:
+              name: quarkus3-leyden
+          - java: '21'
+            app:
+              name: quarkus3-virtual-leyden
+          - java: '21'
+            app:
+              name: springboot3-leyden
+          - java: '21'
+            app:
+              name: springboot3-virtual-leyden
+          - java: '21'
+            app:
+              name: springboot4-leyden
+          - java: '21'
+            app:
+              name: springboot4-virtual-leyden
+    name: "[jvm-build-test-java${{ matrix.java }}]: ${{ matrix.app.name }}"
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - name: Set up Java ${{ matrix.java }}
+        uses: actions/setup-java@v5.7.0
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: temurin
+          cache: maven
+
+      - name: Build and test (non Spring leyden)
+        if: matrix.app.isSpringLeyden == false
+        working-directory: ${{ matrix.app.dir }}
+        run: |
+          ./mvnw -B clean verify ${{ matrix.app.build-args }} \
+            -Dmaven.compiler.release=${{ matrix.java }} \
+            -Djava.version=${{ matrix.java }}
+
+      - name: Build and test (Spring leyden)
+        if: matrix.app.isSpringLeyden == true
+        working-directory: ${{ matrix.app.dir }}
+        run: |
+          # Start the services
+          ../scripts/infra.sh -s
+          
+          # Build and run the app tests
+          ./mvnw -B clean verify ${{ matrix.app.build-args }} \
+            -Dmaven.compiler.release=${{ matrix.java }} \
+            -Djava.version=${{ matrix.java }}
+          
+          # Training run
+          java -Djarmode=tools -jar ${{ matrix.app.app-jar }} extract --destination target/aot-app && \
+            java -XX:AOTCacheOutput=target/app.aot -Dspring.context.exit=onRefresh -jar ${{ matrix.app.app-jar }}
+          
+          # Stop the services
+          ../scripts/infra.sh -d
+
+      - name: Setup JBang
+        uses: jbangdev/setup-jbang@main
+
+      - name: Validate simple scripts
+        working-directory: ${{ matrix.app.dir }}
+        run: |
+          ../scripts/stress.sh "${{ matrix.app.app-jar }}"
+          ../scripts/1strequest.sh "java -XX:ActiveProcessorCount=4 -Xms512m -Xmx512m ${{ matrix.app.run-args }} -jar ${{ matrix.app.app-jar }}" 3
