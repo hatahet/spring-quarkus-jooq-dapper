@@ -5,6 +5,8 @@
     <RootNamespace>AspNet10</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <!-- <CompilerFlags>$(CompilerFlags) -features:runtime-async=on</CompilerFlags> -->
   </PropertyGroup>
 
   <ItemGroup>

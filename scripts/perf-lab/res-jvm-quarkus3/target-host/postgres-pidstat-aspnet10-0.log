@@ -1,0 +1,29 @@
+Linux 6.6.87.2-microsoft-standard-WSL2 (Dimashq) 	09/13/26 	_x86_64_	(16 CPU)
+
+19:37:51      UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+19:37:52      999     67333    0.00    0.00    0.00    0.00    0.00     5  postgres
+19:37:52      999     67492    0.00    0.00    0.00    0.00    0.00     5  postgres
+19:37:52      999     67493    0.00    0.00    0.00    0.00    0.00     4  postgres
+19:37:52      999     67495    0.00    0.00    0.00    0.00    0.00     4  postgres
+19:37:52      999     67496    0.00    0.00    0.00    0.00    0.00     6  postgres
+
+19:37:51      UID       PID   cswch/s nvcswch/s  Command
+19:37:52      999     67333      0.00      0.00  postgres
+19:37:52      999     67492      0.00      0.00  postgres
+19:37:52      999     67493      5.00      0.00  postgres
+19:37:52      999     67495      0.00      0.00  postgres
+19:37:52      999     67496      0.00      0.00  postgres
+
+19:37:52      UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+19:37:53      999     67333    0.00    0.00    0.00    0.00    0.00     5  postgres
+19:37:53      999     67492    0.00    0.00    0.00    0.00    0.00     5  postgres
+19:37:53      999     67493    0.00    0.00    0.00    0.00    0.00     4  postgres
+19:37:53      999     67495    0.00    0.00    0.00    0.00    0.00     4  postgres
+19:37:53      999     67496    0.00    0.00    0.00    0.00    0.00     6  postgres
+
+19:37:52      UID       PID   cswch/s nvcswch/s  Command
+19:37:53      999     67333      0.00      0.00  postgres
+19:37:53      999     67492      0.00      0.00  postgres
+19:37:53      999     67493      5.00      0.00  postgres
+19:37:53      999     67495      0.00      0.00  postgres
+19:37:53      999     67496      0.00      0.00  postgres

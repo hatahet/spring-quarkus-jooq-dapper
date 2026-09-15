@@ -1,0 +1,59 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.0)
+
+2026-09-14T01:06:35.274-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] org.acme.SpringBoot4Application          : Starting SpringBoot4Application v1.0 using Java 25.0.3 with PID 148252 (/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/builds/spring4-jvm/springboot4.jar started by ziad in /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot4)
+2026-09-14T01:06:35.279-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] org.acme.SpringBoot4Application          : No active profile set, falling back to 1 default profile: "default"
+2026-09-14T01:06:36.264-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-09-14T01:06:36.274-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-14T01:06:36.274-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-14T01:06:36.289-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 979 ms
+2026-09-14T01:06:36.673-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] i.m.c.instrument.push.PushMeterRegistry  : Publishing metrics for OtlpMeterRegistry every 1m to http://localhost:4318/v1/metrics with resource attributes {service.name=springboot4}
+2026-09-14T01:06:36.858-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-14T01:06:36.978-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@58a8ea6f
+2026-09-14T01:06:36.979-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-14T01:06:37.834-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+2026-09-14T01:06:37.899-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-09-14T01:06:37.904-04:00  INFO 148252 --- [springboot4] [           main] [                                                 ] org.acme.SpringBoot4Application          : Started SpringBoot4Application in 3.05 seconds (process running for 3.445)
+2026-09-14T01:06:40.713-04:00  INFO 148252 --- [springboot4] [io-8080-exec-48] [                                                 ] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-14T01:06:40.714-04:00  INFO 148252 --- [springboot4] [io-8080-exec-48] [                                                 ] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-14T01:06:40.714-04:00  INFO 148252 --- [springboot4] [io-8080-exec-48] [                                                 ] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-09-14T01:06:40.889-04:00  INFO 148252 --- [springboot4] [io-8080-exec-28] [78385345ae81cdc9f4938b87e3229772-aaf82ab112c9256a] org.jooq.Constants                       : 
+                                      
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@  @@        @@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@        @@@@@@@@@@
+@@@@@@@@@@@@@@@@  @@  @@    @@@@@@@@@@
+@@@@@@@@@@  @@@@  @@  @@    @@@@@@@@@@
+@@@@@@@@@@        @@        @@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@        @@        @@@@@@@@@@
+@@@@@@@@@@    @@  @@  @@@@  @@@@@@@@@@
+@@@@@@@@@@    @@  @@  @@@@  @@@@@@@@@@
+@@@@@@@@@@        @@  @  @  @@@@@@@@@@
+@@@@@@@@@@        @@        @@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Thank you for using jOOQ 3.21.5 (Build date: 2026-06-04T07:54:48Z)
+                                      
+2026-09-14T01:06:40.890-04:00  INFO 148252 --- [springboot4] [io-8080-exec-28] [78385345ae81cdc9f4938b87e3229772-aaf82ab112c9256a] org.jooq.Constants                       : 
+
+jOOQ tip of the day: By default, all user values generate implicit bind values in jOOQ. But you can use DSL.val() explicitly, or create inline values (constants, literals) using DSL.inline(), too: https://www.jooq.org/doc/latest/manual/sql-building/bind-values/
+
+2026-09-14T01:06:40.936-04:00  WARN 148252 --- [springboot4] [io-8080-exec-71] [a2c9ac9a182d4f8113aeed77e14c6d9c-cc52c7e6064afe01] o.j.i.D.logVersionSupport                : Version mismatch         : Database version is older than what dialect SQLDialect.POSTGRES supports: 17.9 (Debian 17.9-1.pgdg13+1). Consider https://www.jooq.org/download/support-matrix to see what jOOQ version and edition supports which RDBMS versions.
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::arrayBaseOffset has been called by com.google.protobuf.UnsafeUtil (jar:nested:/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/builds/spring4-jvm/springboot4.jar/!BOOT-INF/lib/protobuf-java-4.34.2.jar!/)
+WARNING: Please consider reporting this to the maintainers of class com.google.protobuf.UnsafeUtil
+WARNING: sun.misc.Unsafe::arrayBaseOffset will be removed in a future release
+2026-09-14T01:09:42.797-04:00  INFO 148252 --- [springboot4] [ionShutdownHook] [                                                 ] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-14T01:09:42.799-04:00  INFO 148252 --- [springboot4] [tomcat-shutdown] [                                                 ] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-09-14T01:09:42.816-04:00  INFO 148252 --- [springboot4] [ionShutdownHook] [                                                 ] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-14T01:09:42.821-04:00  INFO 148252 --- [springboot4] [ionShutdownHook] [                                                 ] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

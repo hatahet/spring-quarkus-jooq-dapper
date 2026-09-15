@@ -1,0 +1,215 @@
+02:26:57,493 [ :- @  ] run-1789453615039 starting state:
+ env = {"run":{"host":{"user":"ziad","name":"LOCAL","target":"LOCAL"}}}
+ config = {"units":{"timings":{"build":"sec","startup":"ms"},"rss":{"startup":"MiB","firstRequest":"MiB","load":"MiB"},"load":{"throughput":"tps","throughputDensity":"tps per MiB","errors":{"connectionErrors":"absolute number","requestTimeouts":"absolute number"}}},"jvm":{"home":"","version":"25.0.3-tem","graalvm":{"home":"","version":"25.0.2-graalce"},"memory":"-Xms512m -Xmx512m","args":"-XX:+UseParallelGC"},"quarkus":{"version":"3.32.2","build_config_args":"","native_build_options":""},"springboot3":{"version":"","native_build_options":""},"springboot4":{"version":"4.1.0","native_build_options":""},"run":{"dropOsFilesystemCaches":"true","useContainerHostNetwork":"false"},"resources":{"cpu":{"app":"0","db":"4-6","load_generator":"10-12","1st_request":"10","monitor":"13","otel":"7-9"},"app_cpus":"1"},"profiler":{"name":"none","events":"cpu"},"repo":{"branch":"master","url":"https://github.com/hatahet/spring-quarkus-jooq-dapper.git","scenario":"tuned"},"num_iterations":"3"}
+ APP_CMD_PREFIX = taskset --cpu-list ${{config.resources.cpu.app}}
+ LOAD_GEN_CMD_PREFIX = taskset --cpu-list ${{config.resources.cpu.load_generator}}
+ MONITOR_CMD_PREFIX = taskset --cpu-list ${{config.resources.cpu.monitor}}
+ WRK_BIN = ${{LOAD_GEN_CMD_PREFIX}} jbang -R -XX:+UseNUMA wrk@hyperfoil
+ PAUSE_TIME = 20
+ PROFILER_JVM_ARGS = 
+ BASE_JAVA_CMD = ${{APP_CMD_PREFIX}} java ${{config.jvm.memory}} ${{config.jvm.args}} ${{PROFILER_JVM_ARGS}}
+ TESTS = ["run-load-test","measure-rss","measure-time-to-first-request"]
+ RUNTIMES = ["quarkus3-jvm","quarkus3-virtual","aspnet10"]
+ TARGET_URL = http://localhost:8080/fruits
+ QUARKUS-PLATFORM-ARTIFACT-ID = quarkus-bom
+ PROJ_REPO_NAME = spring-quarkus-jooq-dapper
+ METRICS_DIR = /tmp
+ ASYNC_PROFILER = async-profiler
+ RUNTIMECMDS = [{"updateScript":"update-quarkus-version","runCmd":"${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests","name":"quarkus3-jvm","buildRequiresTestServices":"false","type":"jvm","dir":"${{QUARKUS3_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-quarkus-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/quarkus-app/app.aot -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean verify -Dquarkus.package.jar.aot.enabled=true -Dsurefire.excludes='**/*'","name":"quarkus3-leyden","buildRequiresTestServices":"false","type":"jvm","dir":"${{QUARKUS3_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-quarkus-version","runCmd":"${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests","name":"quarkus3-virtual","buildRequiresTestServices":"false","type":"jvm","dir":"${{QUARKUS3_VIRTUAL_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-quarkus-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/quarkus-app/app.aot -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean verify -Dquarkus.package.jar.aot.enabled=true -Dsurefire.excludes='**/*'","name":"quarkus3-virtual-leyden","buildRequiresTestServices":"false","type":"jvm","dir":"${{QUARKUS3_VIRTUAL_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-quarkus-version","runCmd":"${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/quarkus3-runner ${{config.jvm.memory}}","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests -Pnative ${{config.quarkus.native_build_options}}","name":"quarkus3-native","buildRequiresTestServices":"false","type":"native","dir":"${{QUARKUS3_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests","name":"spring3-jvm","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"./mvnw clean package -DskipTests && java -Djarmode=tools -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar extract --destination ${{SPRING3_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING3_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar","name":"spring3-leyden","buildRequiresTestServices":"true","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true","name":"spring3-virtual","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true && java -Djarmode=tools -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar extract --destination ${{SPRING3_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING3_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -Dspring.threads.virtual.enabled=true -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar","name":"spring3-virtual-leyden","buildRequiresTestServices":"true","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -Dspring.aot.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean compile spring-boot:process-aot package -DskipTests","name":"spring3-jvm-aot","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/springboot3 ${{config.jvm.memory}}","updateVersion":"${{config.springboot3.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean -Pnative -DskipTests native:compile package ${{config.springboot3.native_build_options}}","name":"spring3-native","buildRequiresTestServices":"false","type":"native","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests","name":"spring4-jvm","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"./mvnw clean package -DskipTests && java -Djarmode=tools -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar extract --destination ${{SPRING4_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING4_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar","name":"spring4-leyden","buildRequiresTestServices":"true","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true","name":"spring4-virtual","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true && java -Djarmode=tools -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar extract --destination ${{SPRING4_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING4_BOOT_DIR}}/target/app.aot -Dspring.threads.virtual.enabled=true -Dspring.context.exit=onRefresh -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar","name":"spring4-virtual-leyden","buildRequiresTestServices":"true","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -Dspring.aot.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean compile spring-boot:process-aot package -DskipTests","name":"spring4-jvm-aot","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/springboot4 ${{config.jvm.memory}}","updateVersion":"${{config.springboot4.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean -Pnative -DskipTests native:compile package ${{config.springboot4.native_build_options}}","name":"spring4-native","buildRequiresTestServices":"false","type":"native","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"prepare-dotnet-runtime","runCmd":"${{APP_CMD_PREFIX}} dotnet ${{RUNTIME_BUILD_DIR}}/aspnet10.dll","updateVersion":"10","buildCmd":"${{APP_CMD_PREFIX}} dotnet publish src/AspNet10.csproj --configuration Release --no-restore --nologo --output target -t:Rebuild","name":"aspnet10","buildRequiresTestServices":"false","type":"dotnet","dir":"${{ASPNET10_DIR}}","logFileStartedRegex":".*Now listening on:.+8080.*"}]
+
+02:26:57,796 [ test-runner:setup-1066 @ target-host ] setup
+02:26:57,911 [ test-runner:setup-1066 @ target-host ] start-env:
+02:26:57,911 [ test-runner:setup-1066 @ target-host ] script-cmd: update-state
+02:26:57,912 [ test-runner:setup-1066 @ target-host ] update-state
+02:26:58,015 [ test-runner:setup-1066 @ target-host ] echo $(realpath ~)
+/home/ziad
+02:26:58,016 [ test-runner:setup-1066 @ target-host ] set-state: RUN.BASE_DIR /home/ziad
+02:26:58,017 [ test-runner:setup-1066 @ target-host ] set-state: RUN.REPO_DIR /home/ziad/spring-quarkus-perf-comparison
+02:26:58,018 [ test-runner:setup-1066 @ target-host ] set-state: RUN.HYPERFOIL_LOGS_DIR /home/ziad/spring-quarkus-perf-comparison/logs/hyperfoil
+02:26:58,019 [ test-runner:setup-1066 @ target-host ] set-state: RUN.PROJ_REPO_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper
+02:26:58,020 [ test-runner:setup-1066 @ target-host ] set-state: RUN.SCRIPTS_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab
+02:26:58,020 [ test-runner:setup-1066 @ target-host ] set-state: RUN.LOAD_TESTS_SCRIPTS_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab/load-tests
+02:26:58,021 [ test-runner:setup-1066 @ target-host ] set-state: RUN.HELPER_SCRIPTS_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab/scripts
+02:26:58,021 [ test-runner:setup-1066 @ target-host ] set-state: RUN.SPRING3_BOOT_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot3
+02:26:58,022 [ test-runner:setup-1066 @ target-host ] set-state: RUN.SPRING4_BOOT_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot4
+02:26:58,022 [ test-runner:setup-1066 @ target-host ] set-state: RUN.QUARKUS3_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/quarkus3
+02:26:58,023 [ test-runner:setup-1066 @ target-host ] set-state: RUN.QUARKUS3_VIRTUAL_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/quarkus3-virtual
+02:26:58,024 [ test-runner:setup-1066 @ target-host ] set-state: RUN.ASPNET10_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/aspnet10
+02:26:58,024 [ test-runner:setup-1066 @ target-host ] set-state: RUN.BUILDS_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/builds
+02:26:58,025 [ test-runner:setup-1066 @ target-host ] set-state: RUN.ASYNC_PROFILER_DIR /home/ziad/async-profiler
+02:26:58,025 [ test-runner:setup-1066 @ target-host ] script-cmd: cleanup-env
+02:26:58,026 [ test-runner:setup-1066 @ target-host ] cleanup-env
+02:26:58,128 [ test-runner:setup-1066 @ target-host ] rm -Rf /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper
+02:26:58,129 [ test-runner:setup-1066 @ target-host ] script-cmd: config-env
+02:26:58,129 [ test-runner:setup-1066 @ target-host ] config-env
+02:26:58,231 [ test-runner:setup-1066 @ target-host ] rm -Rf /home/ziad/spring-quarkus-perf-comparison/logs
+02:26:58,334 [ test-runner:setup-1066 @ target-host ] mkdir -p /home/ziad/spring-quarkus-perf-comparison/logs
+02:26:58,437 [ test-runner:setup-1066 @ target-host ] mkdir -p /home/ziad/spring-quarkus-perf-comparison/logs/hyperfoil
+02:26:58,437 [ test-runner:setup-1066 @ target-host ] script-cmd: detect-os
+02:26:58,438 [ test-runner:setup-1066 @ target-host ] detect-os
+02:26:58,540 [ test-runner:setup-1066 @ target-host ] uname -a
+Linux Dimashq 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 GNU/Linux
+02:26:58,542 [ test-runner:setup-1066 @ target-host ] regex: .*Linux.*
+02:26:58,542 [ test-runner:setup-1066 @ target-host ] set-state: RUN.os linux
+02:26:58,543 [ test-runner:setup-1066 @ target-host ] script-cmd: capture-system-info
+02:26:58,543 [ test-runner:setup-1066 @ target-host ] capture-system-info
+02:26:58,544 [ test-runner:setup-1066 @ target-host ] script-cmd: capture-system-info-${{os}}
+02:26:58,544 [ test-runner:setup-1066 @ target-host ] capture-system-info-linux
+02:26:58,648 [ test-runner:setup-1066 @ target-host ] grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2 | tr -d '"'
+Ubuntu 26.04 LTS
+02:26:58,649 [ test-runner:setup-1066 @ target-host ] set-state: RUN.env.host.os Ubuntu 26.04 LTS
+02:26:58,752 [ test-runner:setup-1066 @ target-host ] cat /sys/class/dmi/id/sys_vendor /sys/class/dmi/id/product_name 2>/dev/null | paste -sd ' ' || echo 'Unknown'
+02:26:58,752 [ test-runner:setup-1066 @ target-host ] set-state: RUN.env.host.type ""
+02:26:58,855 [ test-runner:setup-1066 @ target-host ] uname -r
+6.6.87.2-microsoft-standard-WSL2
+02:26:58,856 [ test-runner:setup-1066 @ target-host ] set-state: RUN.env.host.kernel 6.6.87.2-microsoft-standard-WSL2
+02:26:58,966 [ test-runner:setup-1066 @ target-host ] lscpu | awk -F: '/^Model name:/ {model=$2} /^CPU\(s):/ {cpus=$2} END {gsub(/^[ \t]+|[ \t]+$/, "", model); gsub(/^[ \t]+|[ \t]+$/, "", cpus); print model " (" cpus " cpus)"}'
+
+AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)
+02:26:58,967 [ test-runner:setup-1066 @ target-host ] set-state: RUN.env.host.cpu AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)
+02:26:59,082 [ test-runner:setup-1066 @ target-host ] lspci | grep -iE 'vga|3d|display' | sed 's/.*: //; s/ (rev.*)$//' | head -n1
+Microsoft Corporation Basic Render Driver
+02:26:59,083 [ test-runner:setup-1066 @ target-host ] set-state: RUN.env.host.gpu Microsoft Corporation Basic Render Driver
+02:26:59,185 [ test-runner:setup-1066 @ target-host ] free -h | grep '^Mem:' | awk '{print $2}'
+15Gi
+02:26:59,186 [ test-runner:setup-1066 @ target-host ] set-state: RUN.env.host.memory 15Gi
+02:26:59,289 [ test-runner:setup-1066 @ target-host ] lscpu -e > /home/ziad/spring-quarkus-perf-comparison/logs/lscpu.txt
+02:26:59,295 [ test-runner:setup-1066 @ target-host ] download: ${{REPO_DIR}}/logs/lscpu.txt 
+./results/target-host/lscpu.txt
+02:26:59,398 [ test-runner:setup-1066 @ target-host ] cat /home/ziad/spring-quarkus-perf-comparison/logs/lscpu.txt
+CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE
+  0    0      0    0 0:0:0:0          yes
+  1    0      0    0 0:0:0:0          yes
+  2    0      0    1 1:1:1:0          yes
+  3    0      0    1 1:1:1:0          yes
+  4    0      0    2 2:2:2:0          yes
+  5    0      0    2 2:2:2:0          yes
+  6    0      0    3 3:3:3:0          yes
+  7    0      0    3 3:3:3:0          yes
+  8    0      0    4 4:4:4:0          yes
+  9    0      0    4 4:4:4:0          yes
+ 10    0      0    5 5:5:5:0          yes
+ 11    0      0    5 5:5:5:0          yes
+ 12    0      0    6 6:6:6:0          yes
+ 13    0      0    6 6:6:6:0          yes
+ 14    0      0    7 7:7:7:0          yes
+ 15    0      0    7 7:7:7:0          yes
+02:26:59,503 [ test-runner:setup-1066 @ target-host ] systemctl status firewalld > /home/ziad/spring-quarkus-perf-comparison/logs/firewalld-status.txt 2>&1 || true
+02:26:59,506 [ test-runner:setup-1066 @ target-host ] download: ${{REPO_DIR}}/logs/firewalld-status.txt 
+./results/target-host/firewalld-status.txt
+02:26:59,506 [ test-runner:setup-1066 @ target-host ] script-cmd: ensure-requirements
+02:26:59,507 [ test-runner:setup-1066 @ target-host ] ensure-requirements
+02:26:59,507 [ test-runner:setup-1066 @ target-host ] script-cmd: ensure-graalvm
+02:26:59,507 [ test-runner:setup-1066 @ target-host ] ensure-graalvm
+02:26:59,609 [ test-runner:setup-1066 @ target-host ] echo ""
+02:26:59,609 [ test-runner:setup-1066 @ target-host ] regex: ^$
+02:26:59,610 [ test-runner:setup-1066 @ target-host ] script-cmd: sdk-select-java
+02:26:59,610 [ test-runner:setup-1066 @ target-host ] sdk-select-java
+02:26:59,711 [ test-runner:setup-1066 @ target-host ] echo true
+true
+02:26:59,711 [ test-runner:setup-1066 @ target-host ] regex: true
+02:26:59,712 [ test-runner:setup-1066 @ target-host ] script-cmd: sdkman-install
+02:26:59,712 [ test-runner:setup-1066 @ target-host ] sdkman-install
+02:27:00,070 [ test-runner:setup-1066 @ target-host ] sdk help
+NAME
+    sdk - The command line interface (CLI) for SDKMAN!
+
+SYNOPSIS
+    sdk <subcommand> [candidate] [version]
+
+DESCRIPTION
+    SDKMAN! is a tool for managing parallel versions of multiple JVM related
+    Software Development Kits on most Unix based systems. It provides a
+    convenient Command Line Interface (CLI) and API for installing, switching,
+    removing and listing Candidates.
+
+SUBCOMMANDS & QUALIFIERS
+    help         [subcommand]
+    install      <candidate> [version] [path]
+    uninstall    <candidate> <version>
+    list         [candidate]
+    use          <candidate> <version>
+    config       no qualifier
+    default      <candidate> [version]
+    home         <candidate> <version>
+    env          [init|install|clear]
+    current      [candidate]
+    upgrade      [candidate]
+    version      no qualifier
+    selfupdate   [force]
+    update       no qualifier
+    flush        [tmp|metadata|version]
+
+EXAMPLES
+    sdk install java 17.0.0-tem
+    sdk help install
+02:27:00,071 [ test-runner:setup-1066 @ target-host ] 
+02:27:00,072 [ test-runner:setup-1066 @ target-host ] Updating SDKMAN
+02:27:00,327 [ test-runner:setup-1066 @ target-host ] sdk flush
+0 archive(s) flushed, freeing 4.0K	/home/ziad/.sdkman/tmp.
+0 archive(s) flushed, freeing 4.0K	/home/ziad/.sdkman/var/metadata.
+02:27:00,785 [ test-runner:setup-1066 @ target-host ] sdk selfupdate force
+
+Session terminated, killing shell...
+02:27:01,070 [ test-runner:cleanup-1194 @ target-host ] cleanup
+02:27:01,070 [ test-runner:cleanup-1194 @ target-host ] script-cmd: stop-timestamp
+02:27:01,070 [ test-runner:cleanup-1194 @ target-host ] stop-timestamp
+02:27:01,172 [ test-runner:cleanup-1194 @ target-host ] date -u +%FT%TZ
+2026-09-15T06:27:01Z
+02:27:01,173 [ test-runner:cleanup-1194 @ target-host ] set-state: RUN.output.timing.stop 2026-09-15T06:27:01Z
+02:27:01,174 [ test-runner:cleanup-1194 @ target-host ] script-cmd: download-metrics
+02:27:01,174 [ test-runner:cleanup-1194 @ target-host ] download-metrics
+02:27:01,276 [ test-runner:cleanup-1194 @ target-host ] mkdir -p /tmp
+02:27:01,378 [ test-runner:cleanup-1194 @ target-host ] rm -Rf /tmp/metrics.json
+02:27:01,382 [ test-runner:cleanup-1194 @ target-host ] set-state: RUN.output.config {"units":{"timings":{"build":"sec","startup":"ms"},"rss":{"startup":"MiB","firstRequest":"MiB","load":"MiB"},"load":{"throughput":"tps","throughputDensity":"tps per MiB","errors":{"connectionErrors":"absolute number","requestTimeouts":"absolute number"}}},"jvm":{"home":"","version":"25.0.3-tem","graalvm":{"home":"","version":"25.0.2-graalce"},"memory":"-Xms512m -Xmx512m","args":"-XX:+UseParallelGC"},"quarkus":{"version":"3.32.2","build_config_args":"","native_build_options":""},"springboot3":{"version":"","native_build_options":""},"springboot4":{"version":"4.1.0","native_build_options":""},"run":{"dropOsFilesystemCaches":"true","useContainerHostNetwork":"false"},"resources":{"cpu":{"app":"0","db":"4-6","load_generator":"10-12","1st_request":"10","monitor":"13","otel":"7-9"},"app_cpus":"1"},"profiler":{"name":"none","events":"cpu"},"repo":{"branch":"master","url":"https://github.com/hatahet/spring-quarkus-jooq-dapper.git","scenario":"tuned"},"num_iterations":"3"}
+02:27:01,383 [ test-runner:cleanup-1194 @ target-host ] set-state: RUN.output.env {"run":{"host":{"user":"ziad","name":"LOCAL","target":"LOCAL"}},"host":{"os":"Ubuntu 26.04 LTS","type":"","kernel":"6.6.87.2-microsoft-standard-WSL2","cpu":"AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)","gpu":"Microsoft Corporation Basic Render Driver","memory":"15Gi"}}
+02:27:01,485 [ test-runner:cleanup-1194 @ target-host ] echo '{"timing":{"stop":"2026-09-15T06:27:01Z"},"config":{"jvm":{"args":"-XX:+UseParallelGC","memory":"-Xms512m -Xmx512m","graalvm":{"version":"25.0.2-graalce","home":""},"version":"25.0.3-tem","home":""},"num_iterations":"3","quarkus":{"build_config_args":"","native_build_options":"","version":"3.32.2"},"repo":{"scenario":"tuned","branch":"master","url":"https://github.com/hatahet/spring-quarkus-jooq-dapper.git"},"springboot3":{"native_build_options":"","version":""},"springboot4":{"native_build_options":"","version":"4.1.0"},"resources":{"cpu":{"app":"0","1st_request":"10","otel":"7-9","monitor":"13","load_generator":"10-12","db":"4-6"},"app_cpus":"1"},"run":{"dropOsFilesystemCaches":"true","useContainerHostNetwork":"false"},"units":{"rss":{"load":"MiB","startup":"MiB","firstRequest":"MiB"},"load":{"throughputDensity":"tps per MiB","throughput":"tps","errors":{"connectionErrors":"absolute number","requestTimeouts":"absolute number"}},"timings":{"build":"sec","startup":"ms"}},"profiler":{"name":"none","events":"cpu"}},"env":{"host":{"memory":"15Gi","os":"Ubuntu 26.04 LTS","kernel":"6.6.87.2-microsoft-standard-WSL2","cpu":"AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)","type":"","gpu":"Microsoft Corporation Basic Render Driver"},"run":{"host":{"name":"LOCAL","user":"ziad","target":"LOCAL"}}}}' > /tmp/metrics.json
+02:27:01,486 [ test-runner:cleanup-1194 @ target-host ] queue-download: ${{METRICS_DIR}}/metrics.json=/tmp/metrics.json ./results/target-host
+02:27:01,486 [ test-runner:cleanup-1194 @ target-host ] script-cmd: stop-test-services
+02:27:01,486 [ test-runner:cleanup-1194 @ target-host ] stop-test-services
+02:27:01,588 [ test-runner:cleanup-1194 @ target-host ] /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/infra.sh -d
+bash: /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/infra.sh: No such file or directory
+02:27:01,588 [ test-runner:cleanup-1194 @ target-host ] script-cmd: cleanup-env
+02:27:01,589 [ test-runner:cleanup-1194 @ target-host ] cleanup-env
+02:27:01,691 [ test-runner:cleanup-1194 @ target-host ] rm -Rf /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper
+02:27:01,697 [ test-runner:setup-1066 @ target-host ] run-1789453615039 closing state:
+ env = {"run":{"host":{"user":"ziad","name":"LOCAL","target":"LOCAL"}},"host":{"os":"Ubuntu 26.04 LTS","type":"","kernel":"6.6.87.2-microsoft-standard-WSL2","cpu":"AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)","gpu":"Microsoft Corporation Basic Render Driver","memory":"15Gi"}}
+ config = {"units":{"timings":{"build":"sec","startup":"ms"},"rss":{"startup":"MiB","firstRequest":"MiB","load":"MiB"},"load":{"throughput":"tps","throughputDensity":"tps per MiB","errors":{"connectionErrors":"absolute number","requestTimeouts":"absolute number"}}},"jvm":{"home":"","version":"25.0.3-tem","graalvm":{"home":"","version":"25.0.2-graalce"},"memory":"-Xms512m -Xmx512m","args":"-XX:+UseParallelGC"},"quarkus":{"version":"3.32.2","build_config_args":"","native_build_options":""},"springboot3":{"version":"","native_build_options":""},"springboot4":{"version":"4.1.0","native_build_options":""},"run":{"dropOsFilesystemCaches":"true","useContainerHostNetwork":"false"},"resources":{"cpu":{"app":"0","db":"4-6","load_generator":"10-12","1st_request":"10","monitor":"13","otel":"7-9"},"app_cpus":"1"},"profiler":{"name":"none","events":"cpu"},"repo":{"branch":"master","url":"https://github.com/hatahet/spring-quarkus-jooq-dapper.git","scenario":"tuned"},"num_iterations":"3"}
+ APP_CMD_PREFIX = taskset --cpu-list ${{config.resources.cpu.app}}
+ LOAD_GEN_CMD_PREFIX = taskset --cpu-list ${{config.resources.cpu.load_generator}}
+ MONITOR_CMD_PREFIX = taskset --cpu-list ${{config.resources.cpu.monitor}}
+ WRK_BIN = ${{LOAD_GEN_CMD_PREFIX}} jbang -R -XX:+UseNUMA wrk@hyperfoil
+ PAUSE_TIME = 20
+ PROFILER_JVM_ARGS = 
+ BASE_JAVA_CMD = ${{APP_CMD_PREFIX}} java ${{config.jvm.memory}} ${{config.jvm.args}} ${{PROFILER_JVM_ARGS}}
+ TESTS = ["run-load-test","measure-rss","measure-time-to-first-request"]
+ RUNTIMES = ["quarkus3-jvm","quarkus3-virtual","aspnet10"]
+ TARGET_URL = http://localhost:8080/fruits
+ QUARKUS-PLATFORM-ARTIFACT-ID = quarkus-bom
+ PROJ_REPO_NAME = spring-quarkus-jooq-dapper
+ METRICS_DIR = /tmp
+ ASYNC_PROFILER = async-profiler
+ RUNTIMECMDS = [{"updateScript":"update-quarkus-version","runCmd":"${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests","name":"quarkus3-jvm","buildRequiresTestServices":"false","type":"jvm","dir":"${{QUARKUS3_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-quarkus-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/quarkus-app/app.aot -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean verify -Dquarkus.package.jar.aot.enabled=true -Dsurefire.excludes='**/*'","name":"quarkus3-leyden","buildRequiresTestServices":"false","type":"jvm","dir":"${{QUARKUS3_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-quarkus-version","runCmd":"${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests","name":"quarkus3-virtual","buildRequiresTestServices":"false","type":"jvm","dir":"${{QUARKUS3_VIRTUAL_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-quarkus-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/quarkus-app/app.aot -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean verify -Dquarkus.package.jar.aot.enabled=true -Dsurefire.excludes='**/*'","name":"quarkus3-virtual-leyden","buildRequiresTestServices":"false","type":"jvm","dir":"${{QUARKUS3_VIRTUAL_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-quarkus-version","runCmd":"${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/quarkus3-runner ${{config.jvm.memory}}","updateVersion":"${{config.quarkus.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests -Pnative ${{config.quarkus.native_build_options}}","name":"quarkus3-native","buildRequiresTestServices":"false","type":"native","dir":"${{QUARKUS3_DIR}}","logFileStartedRegex":".*quarkus3.+started in.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests","name":"spring3-jvm","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"./mvnw clean package -DskipTests && java -Djarmode=tools -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar extract --destination ${{SPRING3_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING3_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar","name":"spring3-leyden","buildRequiresTestServices":"true","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true","name":"spring3-virtual","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true && java -Djarmode=tools -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar extract --destination ${{SPRING3_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING3_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -Dspring.threads.virtual.enabled=true -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar","name":"spring3-virtual-leyden","buildRequiresTestServices":"true","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -Dspring.aot.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar","updateVersion":"${{config.springboot3.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean compile spring-boot:process-aot package -DskipTests","name":"spring3-jvm-aot","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/springboot3 ${{config.jvm.memory}}","updateVersion":"${{config.springboot3.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean -Pnative -DskipTests native:compile package ${{config.springboot3.native_build_options}}","name":"spring3-native","buildRequiresTestServices":"false","type":"native","dir":"${{SPRING3_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot3Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests","name":"spring4-jvm","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"./mvnw clean package -DskipTests && java -Djarmode=tools -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar extract --destination ${{SPRING4_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING4_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar","name":"spring4-leyden","buildRequiresTestServices":"true","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true","name":"spring4-virtual","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true && java -Djarmode=tools -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar extract --destination ${{SPRING4_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING4_BOOT_DIR}}/target/app.aot -Dspring.threads.virtual.enabled=true -Dspring.context.exit=onRefresh -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar","name":"spring4-virtual-leyden","buildRequiresTestServices":"true","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{BASE_JAVA_CMD}} -Dspring.aot.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar","updateVersion":"${{config.springboot4.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean compile spring-boot:process-aot package -DskipTests","name":"spring4-jvm-aot","buildRequiresTestServices":"false","type":"jvm","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"update-spring-boot-version","runCmd":"${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/springboot4 ${{config.jvm.memory}}","updateVersion":"${{config.springboot4.version}}","buildCmd":"${{APP_CMD_PREFIX}} ./mvnw clean -Pnative -DskipTests native:compile package ${{config.springboot4.native_build_options}}","name":"spring4-native","buildRequiresTestServices":"false","type":"native","dir":"${{SPRING4_BOOT_DIR}}","logFileStartedRegex":".*Started SpringBoot4Application in.+seconds.*"},{"updateScript":"prepare-dotnet-runtime","runCmd":"${{APP_CMD_PREFIX}} dotnet ${{RUNTIME_BUILD_DIR}}/aspnet10.dll","updateVersion":"10","buildCmd":"${{APP_CMD_PREFIX}} dotnet publish src/AspNet10.csproj --configuration Release --no-restore --nologo --output target -t:Rebuild","name":"aspnet10","buildRequiresTestServices":"false","type":"dotnet","dir":"${{ASPNET10_DIR}}","logFileStartedRegex":".*Now listening on:.+8080.*"}]
+ BASE_DIR = /home/ziad
+ REPO_DIR = /home/ziad/spring-quarkus-perf-comparison
+ HYPERFOIL_LOGS_DIR = /home/ziad/spring-quarkus-perf-comparison/logs/hyperfoil
+ PROJ_REPO_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper
+ SCRIPTS_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab
+ LOAD_TESTS_SCRIPTS_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab/load-tests
+ HELPER_SCRIPTS_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab/scripts
+ SPRING3_BOOT_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot3
+ SPRING4_BOOT_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot4
+ QUARKUS3_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/quarkus3
+ QUARKUS3_VIRTUAL_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/quarkus3-virtual
+ ASPNET10_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/aspnet10
+ BUILDS_DIR = /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/builds
+ ASYNC_PROFILER_DIR = /home/ziad/async-profiler
+ os = linux
+ ENV = {"ABORTED":"true"}
+ output = {"timing":{"stop":"2026-09-15T06:27:01Z"},"config":{"jvm":{"args":"-XX:+UseParallelGC","memory":"-Xms512m -Xmx512m","graalvm":{"version":"25.0.2-graalce","home":""},"version":"25.0.3-tem","home":""},"num_iterations":"3","quarkus":{"build_config_args":"","native_build_options":"","version":"3.32.2"},"repo":{"scenario":"tuned","branch":"master","url":"https://github.com/hatahet/spring-quarkus-jooq-dapper.git"},"springboot3":{"native_build_options":"","version":""},"springboot4":{"native_build_options":"","version":"4.1.0"},"resources":{"cpu":{"app":"0","1st_request":"10","otel":"7-9","monitor":"13","load_generator":"10-12","db":"4-6"},"app_cpus":"1"},"run":{"dropOsFilesystemCaches":"true","useContainerHostNetwork":"false"},"units":{"rss":{"load":"MiB","startup":"MiB","firstRequest":"MiB"},"load":{"throughputDensity":"tps per MiB","throughput":"tps","errors":{"connectionErrors":"absolute number","requestTimeouts":"absolute number"}},"timings":{"build":"sec","startup":"ms"}},"profiler":{"name":"none","events":"cpu"}},"env":{"host":{"memory":"15Gi","os":"Ubuntu 26.04 LTS","kernel":"6.6.87.2-microsoft-standard-WSL2","cpu":"AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)","type":"","gpu":"Microsoft Corporation Basic Render Driver"},"run":{"host":{"name":"LOCAL","user":"ziad","target":"LOCAL"}}}}
+ LOCAL : 
+   cleanup : 
+     id=1194 : 
+   setup : 
+     id=1066 : 
+

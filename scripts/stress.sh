@@ -28,10 +28,10 @@ fi
 artifact="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
 case "$artifact" in
   *.jar)
-    launch=(java -XX:+UseParallelGC -XX:ActiveProcessorCount=4 -Xms512m -Xmx512m -jar "$artifact")
+    launch=(taskset -c 2,3,4 java -XX:+UseParallelGC -XX:ActiveProcessorCount=1 -Djdk.VirtualThreadScheduler.parallelism=1 -Xms256m -Xmx256m -jar "$artifact")
     ;;
   *.dll)
-    launch=(env DOTNET_PROCESSOR_COUNT=4 dotnet "$artifact")
+    launch=(taskset -c 2,3,4 env DOTNET_PROCESSOR_COUNT=1 dotnet "$artifact")
     ;;
   *)
     echo "Error: expected a .jar or .dll application." >&2
@@ -115,8 +115,8 @@ jbang \
   -Dio.hyperfoil.cpu.watchdog.idle.threshold=0.0 \
   run@hyperfoil \
     -o ${tempdir} \
-    -PLOAD_DURATION=20s \
-    -PWARMUP_DURATION=0s \
+    -PLOAD_DURATION=60s \
+    -PWARMUP_DURATION=30s \
     -PWARMUP_PAUSE_DURATION=0s \
     "${thisdir}/perf-lab/load-tests/load-test-fixed-threads-read-all.hf.yml" &> "${tempdir}/hf.log"
 

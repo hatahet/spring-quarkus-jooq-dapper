@@ -1,0 +1,10 @@
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://0.0.0.0:8080
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/builds/aspnet10/
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...

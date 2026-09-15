@@ -1,0 +1,3 @@
+Phase,Metric,Start,End,Requests,Responses,Mean,StdDev,Min,p50.0,p90.0,p99.0,p99.9,p99.99,Max,ConnectionErrors,RequestTimeouts,InternalErrors,Invalid,BlockedTime,http.2xx,http.3xx,http.4xx,http.5xx,http.CacheHits,http.OtherStatus,MinSessions,MaxSessions
+loadTest,getAllFruits,1789361507606,1789361537614,854854,854854,3500481,1170909,544768,3309567,4882431,7602175,10878975,15269887,21364735,0,0,0,0,0,854854,0,0,0,0,0,0,100
+warmup,getAllFruits,1789361357598,1789361477610,3305699,3305699,3620752,5292773,327680,3358719,5013503,8519679,17694719,36700159,1065353215,0,0,0,0,0,3305699,0,0,0,0,0,0,100

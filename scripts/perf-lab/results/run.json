@@ -1,0 +1,2795 @@
+{
+  "counters": [],
+  "hosts": [{
+    "alias": "target-host",
+    "local": true
+  }],
+  "timestamps": {
+    "setupStart": 1789453617794,
+    "downloadStop": 1789453621695,
+    "cleanupStop": 1789453621693,
+    "stop": 1789453621697,
+    "downloadStart": 1789453621693,
+    "start": 1789453617490,
+    "cleanupStart": 1789453621068,
+    "runStop": 1789453620788
+  },
+  "profiles": [
+    {
+      "timer": {
+        "timers": [
+          {
+            "stop": 1789453621069,
+            "nanos": 595823,
+            "name": "waiting in run queue",
+            "start": 1789453621069,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621069,
+            "nanos": 6130,
+            "name": "cleanup",
+            "start": 1789453621069,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621070,
+            "nanos": 250164,
+            "name": "next",
+            "start": 1789453621069,
+            "millis": 1
+          },
+          {
+            "stop": 1789453621070,
+            "nanos": 93512,
+            "name": "waiting in run queue",
+            "start": 1789453621070,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621070,
+            "nanos": 29281,
+            "name": "script-cmd: stop-timestamp",
+            "start": 1789453621070,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621070,
+            "nanos": 106671,
+            "name": "next",
+            "start": 1789453621070,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621070,
+            "nanos": 93682,
+            "name": "waiting in run queue",
+            "start": 1789453621070,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621070,
+            "nanos": 5600,
+            "name": "stop-timestamp",
+            "start": 1789453621070,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621070,
+            "nanos": 192823,
+            "name": "next",
+            "start": 1789453621070,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621070,
+            "nanos": 95672,
+            "name": "waiting in run queue",
+            "start": 1789453621070,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453621070,
+                "nanos": 48501,
+                "name": "invoke",
+                "start": 1789453621070,
+                "millis": 0
+              },
+              {
+                "stop": 1789453621172,
+                "nanos": 102056130,
+                "name": "await-callback",
+                "start": 1789453621070,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453621172,
+            "nanos": 102114351,
+            "name": "sh: date -u +%FT%TZ",
+            "start": 1789453621070,
+            "millis": 102
+          },
+          {
+            "stop": 1789453621173,
+            "nanos": 172753,
+            "name": "next",
+            "start": 1789453621172,
+            "millis": 1
+          },
+          {
+            "stop": 1789453621173,
+            "nanos": 186863,
+            "name": "waiting in run queue",
+            "start": 1789453621173,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621173,
+            "nanos": 92682,
+            "name": "set-state: RUN.output.timing.stop",
+            "start": 1789453621173,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621173,
+            "nanos": 436717,
+            "name": "next",
+            "start": 1789453621173,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621173,
+            "nanos": 158283,
+            "name": "waiting in run queue",
+            "start": 1789453621173,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621173,
+            "nanos": 76671,
+            "name": "script-cmd: download-metrics",
+            "start": 1789453621173,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621174,
+            "nanos": 188553,
+            "name": "next",
+            "start": 1789453621173,
+            "millis": 1
+          },
+          {
+            "stop": 1789453621174,
+            "nanos": 76381,
+            "name": "waiting in run queue",
+            "start": 1789453621174,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621174,
+            "nanos": 4230,
+            "name": "download-metrics",
+            "start": 1789453621174,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621174,
+            "nanos": 93951,
+            "name": "next",
+            "start": 1789453621174,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621174,
+            "nanos": 145233,
+            "name": "waiting in run queue",
+            "start": 1789453621174,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453621174,
+                "nanos": 44071,
+                "name": "invoke",
+                "start": 1789453621174,
+                "millis": 0
+              },
+              {
+                "stop": 1789453621276,
+                "nanos": 101569588,
+                "name": "await-callback",
+                "start": 1789453621174,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453621276,
+            "nanos": 101642199,
+            "name": "sh: mkdir -p /tmp",
+            "start": 1789453621174,
+            "millis": 102
+          },
+          {
+            "stop": 1789453621276,
+            "nanos": 148262,
+            "name": "next",
+            "start": 1789453621276,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621276,
+            "nanos": 180053,
+            "name": "waiting in run queue",
+            "start": 1789453621276,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453621276,
+                "nanos": 48960,
+                "name": "invoke",
+                "start": 1789453621276,
+                "millis": 0
+              },
+              {
+                "stop": 1789453621377,
+                "nanos": 101161275,
+                "name": "await-callback",
+                "start": 1789453621276,
+                "millis": 101
+              }
+            ],
+            "stop": 1789453621377,
+            "nanos": 101239486,
+            "name": "sh: rm -Rf /tmp/metrics.json",
+            "start": 1789453621276,
+            "millis": 101
+          },
+          {
+            "stop": 1789453621378,
+            "nanos": 533819,
+            "name": "next",
+            "start": 1789453621377,
+            "millis": 1
+          },
+          {
+            "stop": 1789453621378,
+            "nanos": 408687,
+            "name": "waiting in run queue",
+            "start": 1789453621378,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621382,
+            "nanos": 3519579,
+            "name": "set-state: RUN.output.config {\"units\":{\"timings\":{\"build\":\"sec\",\"startup\":\"ms\"},\"rss\":{\"startup\":\"MiB\",\"firstRequest\":\"MiB\",\"load\":\"MiB\"},\"load\":{\"throughput\":\"tps\",\"throughputDensity\":\"tps per MiB\",\"errors\":{\"connectionErrors\":\"absolute number\",\"requestTimeouts\":\"absolute number\"}}},\"jvm\":{\"home\":\"\",\"version\":\"25.0.3-tem\",\"graalvm\":{\"home\":\"\",\"version\":\"25.0.2-graalce\"},\"memory\":\"-Xms512m -Xmx512m\",\"args\":\"-XX:+UseParallelGC\"},\"quarkus\":{\"version\":\"3.32.2\",\"build_config_args\":\"\",\"native_build_options\":\"\"},\"springboot3\":{\"version\":\"\",\"native_build_options\":\"\"},\"springboot4\":{\"version\":\"4.1.0\",\"native_build_options\":\"\"},\"run\":{\"dropOsFilesystemCaches\":\"true\",\"useContainerHostNetwork\":\"false\"},\"resources\":{\"cpu\":{\"app\":\"0\",\"db\":\"4-6\",\"load_generator\":\"10-12\",\"1st_request\":\"10\",\"monitor\":\"13\",\"otel\":\"7-9\"},\"app_cpus\":\"1\"},\"profiler\":{\"name\":\"none\",\"events\":\"cpu\"},\"repo\":{\"branch\":\"master\",\"url\":\"https://github.com/hatahet/spring-quarkus-jooq-dapper.git\",\"scenario\":\"tuned\"},\"num_iterations\":\"3\"}",
+            "start": 1789453621378,
+            "millis": 4
+          },
+          {
+            "stop": 1789453621382,
+            "nanos": 385276,
+            "name": "next",
+            "start": 1789453621382,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621382,
+            "nanos": 182933,
+            "name": "waiting in run queue",
+            "start": 1789453621382,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621382,
+            "nanos": 186313,
+            "name": "set-state: RUN.output.env {\"run\":{\"host\":{\"user\":\"ziad\",\"name\":\"LOCAL\",\"target\":\"LOCAL\"}},\"host\":{\"os\":\"Ubuntu 26.04 LTS\",\"type\":\"\",\"kernel\":\"6.6.87.2-microsoft-standard-WSL2\",\"cpu\":\"AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)\",\"gpu\":\"Microsoft Corporation Basic Render Driver\",\"memory\":\"15Gi\"}}",
+            "start": 1789453621382,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621383,
+            "nanos": 152682,
+            "name": "next",
+            "start": 1789453621382,
+            "millis": 1
+          },
+          {
+            "stop": 1789453621383,
+            "nanos": 361326,
+            "name": "waiting in run queue",
+            "start": 1789453621383,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453621383,
+                "nanos": 71221,
+                "name": "invoke",
+                "start": 1789453621383,
+                "millis": 0
+              },
+              {
+                "stop": 1789453621485,
+                "nanos": 101331398,
+                "name": "await-callback",
+                "start": 1789453621383,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453621485,
+            "nanos": 101616663,
+            "name": "sh: echo '{\"timing\":{\"stop\":\"2026-09-15T06:27:01Z\"},\"config\":{\"jvm\":{\"args\":\"-XX:+UseParallelGC\",\"memory\":\"-Xms512m -Xmx512m\",\"graalvm\":{\"version\":\"25.0.2-graalce\",\"home\":\"\"},\"version\":\"25.0.3-tem\",\"home\":\"\"},\"num_iterations\":\"3\",\"quarkus\":{\"build_config_args\":\"\",\"native_build_options\":\"\",\"version\":\"3.32.2\"},\"repo\":{\"scenario\":\"tuned\",\"branch\":\"master\",\"url\":\"https://github.com/hatahet/spring-quarkus-jooq-dapper.git\"},\"springboot3\":{\"native_build_options\":\"\",\"version\":\"\"},\"springboot4\":{\"native_build_options\":\"\",\"version\":\"4.1.0\"},\"resources\":{\"cpu\":{\"app\":\"0\",\"1st_request\":\"10\",\"otel\":\"7-9\",\"monitor\":\"13\",\"load_generator\":\"10-12\",\"db\":\"4-6\"},\"app_cpus\":\"1\"},\"run\":{\"dropOsFilesystemCaches\":\"true\",\"useContainerHostNetwork\":\"false\"},\"units\":{\"rss\":{\"load\":\"MiB\",\"startup\":\"MiB\",\"firstRequest\":\"MiB\"},\"load\":{\"throughputDensity\":\"tps per MiB\",\"throughput\":\"tps\",\"errors\":{\"connectionErrors\":\"absolute number\",\"requestTimeouts\":\"absolute number\"}},\"timings\":{\"build\":\"sec\",\"startup\":\"ms\"}},\"profiler\":{\"name\":\"none\",\"events\":\"cpu\"}},\"env\":{\"host\":{\"memory\":\"15Gi\",\"os\":\"Ubuntu 26.04 LTS\",\"kernel\":\"6.6.87.2-microsoft-standard-WSL2\",\"cpu\":\"AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)\",\"type\":\"\",\"gpu\":\"Microsoft Corporation Basic Render Driver\"},\"run\":{\"host\":{\"name\":\"LOCAL\",\"user\":\"ziad\",\"target\":\"LOCAL\"}}}}' > /tmp/metrics.json",
+            "start": 1789453621383,
+            "millis": 102
+          },
+          {
+            "stop": 1789453621485,
+            "nanos": 277505,
+            "name": "next",
+            "start": 1789453621485,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621485,
+            "nanos": 257724,
+            "name": "waiting in run queue",
+            "start": 1789453621485,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621485,
+            "nanos": 20980,
+            "name": "regex: .*Permission denied",
+            "start": 1789453621485,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621485,
+            "nanos": 69511,
+            "name": "skip",
+            "start": 1789453621485,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 417117,
+            "name": "waiting in run queue",
+            "start": 1789453621485,
+            "millis": 1
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 180053,
+            "name": "queue-download: /tmp/metrics.json",
+            "start": 1789453621486,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 224524,
+            "name": "next",
+            "start": 1789453621486,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 85472,
+            "name": "waiting in run queue",
+            "start": 1789453621486,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 26680,
+            "name": "script-cmd: stop-test-services",
+            "start": 1789453621486,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 174163,
+            "name": "next",
+            "start": 1789453621486,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 76161,
+            "name": "waiting in run queue",
+            "start": 1789453621486,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 5020,
+            "name": "stop-test-services",
+            "start": 1789453621486,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621486,
+            "nanos": 96372,
+            "name": "next",
+            "start": 1789453621486,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621487,
+            "nanos": 152363,
+            "name": "waiting in run queue",
+            "start": 1789453621486,
+            "millis": 1
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453621487,
+                "nanos": 225037,
+                "name": "invoke",
+                "start": 1789453621487,
+                "millis": 0
+              },
+              {
+                "stop": 1789453621588,
+                "nanos": 100942344,
+                "name": "await-callback",
+                "start": 1789453621487,
+                "millis": 101
+              }
+            ],
+            "stop": 1789453621588,
+            "nanos": 101231532,
+            "name": "sh: /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/infra.sh -d",
+            "start": 1789453621487,
+            "millis": 101
+          },
+          {
+            "stop": 1789453621588,
+            "nanos": 331685,
+            "name": "next",
+            "start": 1789453621588,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621588,
+            "nanos": 180894,
+            "name": "waiting in run queue",
+            "start": 1789453621588,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621588,
+            "nanos": 33660,
+            "name": "script-cmd: cleanup-env",
+            "start": 1789453621588,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621589,
+            "nanos": 123822,
+            "name": "next",
+            "start": 1789453621588,
+            "millis": 1
+          },
+          {
+            "stop": 1789453621589,
+            "nanos": 208204,
+            "name": "waiting in run queue",
+            "start": 1789453621589,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621589,
+            "nanos": 9240,
+            "name": "cleanup-env",
+            "start": 1789453621589,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621589,
+            "nanos": 145733,
+            "name": "next",
+            "start": 1789453621589,
+            "millis": 0
+          },
+          {
+            "stop": 1789453621589,
+            "nanos": 172512,
+            "name": "waiting in run queue",
+            "start": 1789453621589,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453621589,
+                "nanos": 56811,
+                "name": "invoke",
+                "start": 1789453621589,
+                "millis": 0
+              },
+              {
+                "stop": 1789453621690,
+                "nanos": 101204002,
+                "name": "await-callback",
+                "start": 1789453621589,
+                "millis": 101
+              }
+            ],
+            "stop": 1789453621690,
+            "nanos": 101311624,
+            "name": "sh: rm -Rf /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper",
+            "start": 1789453621589,
+            "millis": 101
+          },
+          {
+            "stop": 1789453621691,
+            "nanos": 260005,
+            "name": "next",
+            "start": 1789453621690,
+            "millis": 1
+          },
+          {
+            "stop": 1789453621691,
+            "nanos": 159072,
+            "name": "waiting in run queue",
+            "start": 1789453621691,
+            "millis": 0
+          }
+        ],
+        "stop": 1789453621691,
+        "nanos": 622056284,
+        "name": "test-runner-cleanup@target-host",
+        "start": 1789453621069,
+        "millis": 622
+      },
+      "scriptId": 1194,
+      "role": "test-runner",
+      "name": "test-runner-cleanup@target-host",
+      "host": "target-host",
+      "script": "cleanup"
+    },
+    {
+      "timer": {
+        "timers": [
+          {
+            "stop": 1789453617795,
+            "nanos": 846373,
+            "name": "waiting in run queue",
+            "start": 1789453617795,
+            "millis": 0
+          },
+          {
+            "stop": 1789453617795,
+            "nanos": 9931,
+            "name": "setup",
+            "start": 1789453617795,
+            "millis": 0
+          },
+          {
+            "stop": 1789453617796,
+            "nanos": 724292,
+            "name": "next",
+            "start": 1789453617795,
+            "millis": 1
+          },
+          {
+            "stop": 1789453617797,
+            "nanos": 509408,
+            "name": "waiting in run queue",
+            "start": 1789453617796,
+            "millis": 1
+          },
+          {
+            "stop": 1789453617911,
+            "nanos": 113921161,
+            "name": "env",
+            "start": 1789453617797,
+            "millis": 114
+          },
+          {
+            "stop": 1789453617911,
+            "nanos": 215973,
+            "name": "next",
+            "start": 1789453617911,
+            "millis": 0
+          },
+          {
+            "stop": 1789453617911,
+            "nanos": 367216,
+            "name": "waiting in run queue",
+            "start": 1789453617911,
+            "millis": 0
+          },
+          {
+            "stop": 1789453617911,
+            "nanos": 200884,
+            "name": "script-cmd: update-state",
+            "start": 1789453617911,
+            "millis": 0
+          },
+          {
+            "stop": 1789453617912,
+            "nanos": 202003,
+            "name": "next",
+            "start": 1789453617911,
+            "millis": 1
+          },
+          {
+            "stop": 1789453617912,
+            "nanos": 671131,
+            "name": "waiting in run queue",
+            "start": 1789453617912,
+            "millis": 0
+          },
+          {
+            "stop": 1789453617912,
+            "nanos": 24091,
+            "name": "update-state",
+            "start": 1789453617912,
+            "millis": 0
+          },
+          {
+            "stop": 1789453617912,
+            "nanos": 171193,
+            "name": "next",
+            "start": 1789453617912,
+            "millis": 0
+          },
+          {
+            "stop": 1789453617913,
+            "nanos": 418369,
+            "name": "waiting in run queue",
+            "start": 1789453617912,
+            "millis": 1
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453617913,
+                "nanos": 244744,
+                "name": "invoke",
+                "start": 1789453617913,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618015,
+                "nanos": 101852266,
+                "name": "await-callback",
+                "start": 1789453617913,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453618015,
+            "nanos": 102128951,
+            "name": "sh: echo $(realpath ~)",
+            "start": 1789453617913,
+            "millis": 102
+          },
+          {
+            "stop": 1789453618015,
+            "nanos": 454438,
+            "name": "next",
+            "start": 1789453618015,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618016,
+            "nanos": 349875,
+            "name": "waiting in run queue",
+            "start": 1789453618015,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618016,
+            "nanos": 206364,
+            "name": "set-state: RUN.BASE_DIR",
+            "start": 1789453618016,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618016,
+            "nanos": 210633,
+            "name": "next",
+            "start": 1789453618016,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618017,
+            "nanos": 603443,
+            "name": "waiting in run queue",
+            "start": 1789453618016,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618017,
+            "nanos": 50081,
+            "name": "set-state: RUN.REPO_DIR /home/ziad/spring-quarkus-perf-comparison",
+            "start": 1789453618017,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618017,
+            "nanos": 409797,
+            "name": "next",
+            "start": 1789453618017,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618018,
+            "nanos": 392986,
+            "name": "waiting in run queue",
+            "start": 1789453618017,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618018,
+            "nanos": 141683,
+            "name": "set-state: RUN.HYPERFOIL_LOGS_DIR /home/ziad/spring-quarkus-perf-comparison/logs/hyperfoil",
+            "start": 1789453618018,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618018,
+            "nanos": 236474,
+            "name": "next",
+            "start": 1789453618018,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618019,
+            "nanos": 647928,
+            "name": "waiting in run queue",
+            "start": 1789453618018,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618019,
+            "nanos": 71631,
+            "name": "set-state: RUN.PROJ_REPO_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper",
+            "start": 1789453618019,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618019,
+            "nanos": 263514,
+            "name": "next",
+            "start": 1789453618019,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618019,
+            "nanos": 416900,
+            "name": "waiting in run queue",
+            "start": 1789453618019,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618019,
+            "nanos": 42651,
+            "name": "set-state: RUN.SCRIPTS_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab",
+            "start": 1789453618019,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618020,
+            "nanos": 155112,
+            "name": "next",
+            "start": 1789453618019,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618020,
+            "nanos": 511026,
+            "name": "waiting in run queue",
+            "start": 1789453618020,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618020,
+            "nanos": 59411,
+            "name": "set-state: RUN.LOAD_TESTS_SCRIPTS_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab/load-tests",
+            "start": 1789453618020,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618020,
+            "nanos": 182213,
+            "name": "next",
+            "start": 1789453618020,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618021,
+            "nanos": 136692,
+            "name": "waiting in run queue",
+            "start": 1789453618020,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618021,
+            "nanos": 150832,
+            "name": "set-state: RUN.HELPER_SCRIPTS_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab/scripts",
+            "start": 1789453618021,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618021,
+            "nanos": 157783,
+            "name": "next",
+            "start": 1789453618021,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618021,
+            "nanos": 271365,
+            "name": "waiting in run queue",
+            "start": 1789453618021,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618021,
+            "nanos": 141042,
+            "name": "set-state: RUN.SPRING3_BOOT_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot3",
+            "start": 1789453618021,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618022,
+            "nanos": 307525,
+            "name": "next",
+            "start": 1789453618021,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618022,
+            "nanos": 215664,
+            "name": "waiting in run queue",
+            "start": 1789453618022,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618022,
+            "nanos": 40291,
+            "name": "set-state: RUN.SPRING4_BOOT_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot4",
+            "start": 1789453618022,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618022,
+            "nanos": 295645,
+            "name": "next",
+            "start": 1789453618022,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618022,
+            "nanos": 134672,
+            "name": "waiting in run queue",
+            "start": 1789453618022,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618022,
+            "nanos": 38530,
+            "name": "set-state: RUN.QUARKUS3_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/quarkus3",
+            "start": 1789453618022,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618023,
+            "nanos": 229264,
+            "name": "next",
+            "start": 1789453618022,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618023,
+            "nanos": 223394,
+            "name": "waiting in run queue",
+            "start": 1789453618023,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618023,
+            "nanos": 40271,
+            "name": "set-state: RUN.QUARKUS3_VIRTUAL_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/quarkus3-virtual",
+            "start": 1789453618023,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618023,
+            "nanos": 550524,
+            "name": "next",
+            "start": 1789453618023,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618024,
+            "nanos": 242954,
+            "name": "waiting in run queue",
+            "start": 1789453618023,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618024,
+            "nanos": 50171,
+            "name": "set-state: RUN.ASPNET10_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/aspnet10",
+            "start": 1789453618024,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618024,
+            "nanos": 244024,
+            "name": "next",
+            "start": 1789453618024,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618024,
+            "nanos": 117772,
+            "name": "waiting in run queue",
+            "start": 1789453618024,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618024,
+            "nanos": 38100,
+            "name": "set-state: RUN.BUILDS_DIR /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/builds",
+            "start": 1789453618024,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618024,
+            "nanos": 232574,
+            "name": "next",
+            "start": 1789453618024,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618025,
+            "nanos": 136573,
+            "name": "waiting in run queue",
+            "start": 1789453618024,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618025,
+            "nanos": 54210,
+            "name": "set-state: RUN.ASYNC_PROFILER_DIR /home/ziad/async-profiler",
+            "start": 1789453618025,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618025,
+            "nanos": 215313,
+            "name": "next",
+            "start": 1789453618025,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618025,
+            "nanos": 86862,
+            "name": "waiting in run queue",
+            "start": 1789453618025,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618025,
+            "nanos": 65367,
+            "name": "script-cmd: cleanup-env",
+            "start": 1789453618025,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618025,
+            "nanos": 312835,
+            "name": "next",
+            "start": 1789453618025,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618025,
+            "nanos": 197434,
+            "name": "waiting in run queue",
+            "start": 1789453618025,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618025,
+            "nanos": 13610,
+            "name": "cleanup-env",
+            "start": 1789453618025,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618026,
+            "nanos": 411406,
+            "name": "next",
+            "start": 1789453618025,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618026,
+            "nanos": 147393,
+            "name": "waiting in run queue",
+            "start": 1789453618026,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618026,
+                "nanos": 52751,
+                "name": "invoke",
+                "start": 1789453618026,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618128,
+                "nanos": 101737746,
+                "name": "await-callback",
+                "start": 1789453618026,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453618128,
+            "nanos": 101834407,
+            "name": "sh: rm -Rf /home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper",
+            "start": 1789453618026,
+            "millis": 102
+          },
+          {
+            "stop": 1789453618128,
+            "nanos": 213574,
+            "name": "next",
+            "start": 1789453618128,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618128,
+            "nanos": 208242,
+            "name": "waiting in run queue",
+            "start": 1789453618128,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618128,
+            "nanos": 38231,
+            "name": "script-cmd: config-env",
+            "start": 1789453618128,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618129,
+            "nanos": 457348,
+            "name": "next",
+            "start": 1789453618128,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618129,
+            "nanos": 193723,
+            "name": "waiting in run queue",
+            "start": 1789453618129,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618129,
+            "nanos": 187233,
+            "name": "config-env",
+            "start": 1789453618129,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618130,
+            "nanos": 287795,
+            "name": "next",
+            "start": 1789453618129,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618130,
+            "nanos": 206313,
+            "name": "waiting in run queue",
+            "start": 1789453618130,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618130,
+                "nanos": 45421,
+                "name": "invoke",
+                "start": 1789453618130,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618231,
+                "nanos": 100995783,
+                "name": "await-callback",
+                "start": 1789453618130,
+                "millis": 101
+              }
+            ],
+            "stop": 1789453618231,
+            "nanos": 101066715,
+            "name": "sh: rm -Rf /home/ziad/spring-quarkus-perf-comparison/logs",
+            "start": 1789453618130,
+            "millis": 101
+          },
+          {
+            "stop": 1789453618231,
+            "nanos": 387636,
+            "name": "next",
+            "start": 1789453618231,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618231,
+            "nanos": 161314,
+            "name": "waiting in run queue",
+            "start": 1789453618231,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618231,
+                "nanos": 50911,
+                "name": "invoke",
+                "start": 1789453618231,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618334,
+                "nanos": 102598930,
+                "name": "await-callback",
+                "start": 1789453618231,
+                "millis": 103
+              }
+            ],
+            "stop": 1789453618334,
+            "nanos": 102675031,
+            "name": "sh: mkdir -p /home/ziad/spring-quarkus-perf-comparison/logs",
+            "start": 1789453618231,
+            "millis": 103
+          },
+          {
+            "stop": 1789453618334,
+            "nanos": 320995,
+            "name": "next",
+            "start": 1789453618334,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618335,
+            "nanos": 270855,
+            "name": "waiting in run queue",
+            "start": 1789453618334,
+            "millis": 1
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618335,
+                "nanos": 99581,
+                "name": "invoke",
+                "start": 1789453618335,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618437,
+                "nanos": 101870257,
+                "name": "await-callback",
+                "start": 1789453618335,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453618437,
+            "nanos": 102017169,
+            "name": "sh: mkdir -p /home/ziad/spring-quarkus-perf-comparison/logs/hyperfoil",
+            "start": 1789453618335,
+            "millis": 102
+          },
+          {
+            "stop": 1789453618437,
+            "nanos": 180973,
+            "name": "next",
+            "start": 1789453618437,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618437,
+            "nanos": 266805,
+            "name": "waiting in run queue",
+            "start": 1789453618437,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618437,
+            "nanos": 161643,
+            "name": "script-cmd: detect-os",
+            "start": 1789453618437,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618438,
+            "nanos": 264514,
+            "name": "next",
+            "start": 1789453618437,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618438,
+            "nanos": 90582,
+            "name": "waiting in run queue",
+            "start": 1789453618438,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618438,
+            "nanos": 5150,
+            "name": "detect-os",
+            "start": 1789453618438,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618438,
+            "nanos": 429061,
+            "name": "next",
+            "start": 1789453618438,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618438,
+            "nanos": 100401,
+            "name": "waiting in run queue",
+            "start": 1789453618438,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618438,
+                "nanos": 45881,
+                "name": "invoke",
+                "start": 1789453618438,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618540,
+                "nanos": 101902212,
+                "name": "await-callback",
+                "start": 1789453618438,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453618540,
+            "nanos": 101955293,
+            "name": "sh: uname -a",
+            "start": 1789453618438,
+            "millis": 102
+          },
+          {
+            "stop": 1789453618540,
+            "nanos": 220184,
+            "name": "next",
+            "start": 1789453618540,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618541,
+            "nanos": 354465,
+            "name": "waiting in run queue",
+            "start": 1789453618540,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618541,
+            "nanos": 724362,
+            "name": "regex: .*Darwin.*",
+            "start": 1789453618541,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618542,
+            "nanos": 73991,
+            "name": "skip",
+            "start": 1789453618541,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618542,
+            "nanos": 99182,
+            "name": "waiting in run queue",
+            "start": 1789453618542,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618542,
+            "nanos": 214044,
+            "name": "regex: .*Linux.*",
+            "start": 1789453618542,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618542,
+            "nanos": 69971,
+            "name": "next",
+            "start": 1789453618542,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618542,
+            "nanos": 112782,
+            "name": "waiting in run queue",
+            "start": 1789453618542,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618542,
+            "nanos": 42760,
+            "name": "set-state: RUN.os linux",
+            "start": 1789453618542,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618542,
+            "nanos": 174513,
+            "name": "next",
+            "start": 1789453618542,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618543,
+            "nanos": 363516,
+            "name": "waiting in run queue",
+            "start": 1789453618542,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618543,
+            "nanos": 159546,
+            "name": "script-cmd: capture-system-info",
+            "start": 1789453618543,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618543,
+            "nanos": 191993,
+            "name": "next",
+            "start": 1789453618543,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618543,
+            "nanos": 94012,
+            "name": "waiting in run queue",
+            "start": 1789453618543,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618543,
+            "nanos": 6860,
+            "name": "capture-system-info",
+            "start": 1789453618543,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618543,
+            "nanos": 358414,
+            "name": "next",
+            "start": 1789453618543,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618544,
+            "nanos": 153923,
+            "name": "waiting in run queue",
+            "start": 1789453618543,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618544,
+            "nanos": 141652,
+            "name": "script-cmd: capture-system-info-linux",
+            "start": 1789453618544,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618544,
+            "nanos": 285345,
+            "name": "next",
+            "start": 1789453618544,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618544,
+            "nanos": 184813,
+            "name": "waiting in run queue",
+            "start": 1789453618544,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618544,
+            "nanos": 4280,
+            "name": "capture-system-info-linux",
+            "start": 1789453618544,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618545,
+            "nanos": 378766,
+            "name": "next",
+            "start": 1789453618544,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618545,
+            "nanos": 162263,
+            "name": "waiting in run queue",
+            "start": 1789453618545,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618545,
+                "nanos": 161763,
+                "name": "invoke",
+                "start": 1789453618545,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618648,
+                "nanos": 102709984,
+                "name": "await-callback",
+                "start": 1789453618545,
+                "millis": 103
+              }
+            ],
+            "stop": 1789453618648,
+            "nanos": 102878417,
+            "name": "sh: grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2 | tr -d '\"'",
+            "start": 1789453618545,
+            "millis": 103
+          },
+          {
+            "stop": 1789453618648,
+            "nanos": 753615,
+            "name": "next",
+            "start": 1789453618648,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618649,
+            "nanos": 153819,
+            "name": "waiting in run queue",
+            "start": 1789453618648,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618649,
+            "nanos": 43201,
+            "name": "set-state: RUN.env.host.os",
+            "start": 1789453618649,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618649,
+            "nanos": 232004,
+            "name": "next",
+            "start": 1789453618649,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618649,
+            "nanos": 131283,
+            "name": "waiting in run queue",
+            "start": 1789453618649,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618649,
+                "nanos": 46250,
+                "name": "invoke",
+                "start": 1789453618649,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618752,
+                "nanos": 102721215,
+                "name": "await-callback",
+                "start": 1789453618649,
+                "millis": 103
+              }
+            ],
+            "stop": 1789453618752,
+            "nanos": 102774015,
+            "name": "sh: cat /sys/class/dmi/id/sys_vendor /sys/class/dmi/id/product_name 2>/dev/null | paste -sd ' ' || echo 'Unknown'",
+            "start": 1789453618649,
+            "millis": 103
+          },
+          {
+            "stop": 1789453618752,
+            "nanos": 382396,
+            "name": "next",
+            "start": 1789453618752,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618752,
+            "nanos": 125165,
+            "name": "waiting in run queue",
+            "start": 1789453618752,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618752,
+            "nanos": 39371,
+            "name": "set-state: RUN.env.host.type",
+            "start": 1789453618752,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618753,
+            "nanos": 365596,
+            "name": "next",
+            "start": 1789453618752,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618753,
+            "nanos": 164903,
+            "name": "waiting in run queue",
+            "start": 1789453618753,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618753,
+                "nanos": 140092,
+                "name": "invoke",
+                "start": 1789453618753,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618855,
+                "nanos": 101477611,
+                "name": "await-callback",
+                "start": 1789453618753,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453618855,
+            "nanos": 101629623,
+            "name": "sh: uname -r",
+            "start": 1789453618753,
+            "millis": 102
+          },
+          {
+            "stop": 1789453618855,
+            "nanos": 284905,
+            "name": "next",
+            "start": 1789453618855,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618855,
+            "nanos": 460357,
+            "name": "waiting in run queue",
+            "start": 1789453618855,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618855,
+            "nanos": 215176,
+            "name": "set-state: RUN.env.host.kernel",
+            "start": 1789453618855,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618856,
+            "nanos": 163123,
+            "name": "next",
+            "start": 1789453618855,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618856,
+            "nanos": 225504,
+            "name": "waiting in run queue",
+            "start": 1789453618856,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618856,
+                "nanos": 60841,
+                "name": "invoke",
+                "start": 1789453618856,
+                "millis": 0
+              },
+              {
+                "stop": 1789453618966,
+                "nanos": 109705110,
+                "name": "await-callback",
+                "start": 1789453618856,
+                "millis": 110
+              }
+            ],
+            "stop": 1789453618966,
+            "nanos": 109776671,
+            "name": "sh: lscpu | awk -F: '/^Model name:/ {model=$2} /^CPU\\(s):/ {cpus=$2} END {gsub(/^[ \\t]+|[ \\t]+$/, \"\", model); gsub(/^[ \\t]+|[ \\t]+$/, \"\", cpus); print model \" (\" cpus \" cpus)\"}'\n",
+            "start": 1789453618856,
+            "millis": 110
+          },
+          {
+            "stop": 1789453618966,
+            "nanos": 294415,
+            "name": "next",
+            "start": 1789453618966,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618966,
+            "nanos": 211141,
+            "name": "waiting in run queue",
+            "start": 1789453618966,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618966,
+            "nanos": 251794,
+            "name": "set-state: RUN.env.host.cpu",
+            "start": 1789453618966,
+            "millis": 0
+          },
+          {
+            "stop": 1789453618967,
+            "nanos": 284055,
+            "name": "next",
+            "start": 1789453618966,
+            "millis": 1
+          },
+          {
+            "stop": 1789453618967,
+            "nanos": 149163,
+            "name": "waiting in run queue",
+            "start": 1789453618967,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453618967,
+                "nanos": 44581,
+                "name": "invoke",
+                "start": 1789453618967,
+                "millis": 0
+              },
+              {
+                "stop": 1789453619082,
+                "nanos": 115342377,
+                "name": "await-callback",
+                "start": 1789453618967,
+                "millis": 115
+              }
+            ],
+            "stop": 1789453619082,
+            "nanos": 115393358,
+            "name": "sh: lspci | grep -iE 'vga|3d|display' | sed 's/.*: //; s/ (rev.*)$//' | head -n1",
+            "start": 1789453618967,
+            "millis": 115
+          },
+          {
+            "stop": 1789453619082,
+            "nanos": 154613,
+            "name": "next",
+            "start": 1789453619082,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619083,
+            "nanos": 127610,
+            "name": "waiting in run queue",
+            "start": 1789453619082,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619083,
+            "nanos": 43001,
+            "name": "set-state: RUN.env.host.gpu",
+            "start": 1789453619083,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619083,
+            "nanos": 221724,
+            "name": "next",
+            "start": 1789453619083,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619083,
+            "nanos": 109832,
+            "name": "waiting in run queue",
+            "start": 1789453619083,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453619083,
+                "nanos": 66931,
+                "name": "invoke",
+                "start": 1789453619083,
+                "millis": 0
+              },
+              {
+                "stop": 1789453619185,
+                "nanos": 102405081,
+                "name": "await-callback",
+                "start": 1789453619083,
+                "millis": 102
+              }
+            ],
+            "stop": 1789453619185,
+            "nanos": 102478452,
+            "name": "sh: free -h | grep '^Mem:' | awk '{print $2}'",
+            "start": 1789453619083,
+            "millis": 102
+          },
+          {
+            "stop": 1789453619186,
+            "nanos": 200143,
+            "name": "next",
+            "start": 1789453619185,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619186,
+            "nanos": 146480,
+            "name": "waiting in run queue",
+            "start": 1789453619186,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619186,
+            "nanos": 135692,
+            "name": "set-state: RUN.env.host.memory",
+            "start": 1789453619186,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619186,
+            "nanos": 143232,
+            "name": "next",
+            "start": 1789453619186,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619186,
+            "nanos": 141833,
+            "name": "waiting in run queue",
+            "start": 1789453619186,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453619186,
+                "nanos": 45471,
+                "name": "invoke",
+                "start": 1789453619186,
+                "millis": 0
+              },
+              {
+                "stop": 1789453619289,
+                "nanos": 102815832,
+                "name": "await-callback",
+                "start": 1789453619186,
+                "millis": 103
+              }
+            ],
+            "stop": 1789453619289,
+            "nanos": 102889673,
+            "name": "sh: lscpu -e > /home/ziad/spring-quarkus-perf-comparison/logs/lscpu.txt",
+            "start": 1789453619186,
+            "millis": 103
+          },
+          {
+            "stop": 1789453619289,
+            "nanos": 154942,
+            "name": "next",
+            "start": 1789453619289,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619290,
+            "nanos": 451901,
+            "name": "waiting in run queue",
+            "start": 1789453619289,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619294,
+            "nanos": 4833931,
+            "name": "download: /home/ziad/spring-quarkus-perf-comparison/logs/lscpu.txt ",
+            "start": 1789453619290,
+            "millis": 4
+          },
+          {
+            "stop": 1789453619295,
+            "nanos": 305435,
+            "name": "next",
+            "start": 1789453619294,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619295,
+            "nanos": 326512,
+            "name": "waiting in run queue",
+            "start": 1789453619295,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453619295,
+                "nanos": 53851,
+                "name": "invoke",
+                "start": 1789453619295,
+                "millis": 0
+              },
+              {
+                "stop": 1789453619398,
+                "nanos": 102897618,
+                "name": "await-callback",
+                "start": 1789453619295,
+                "millis": 103
+              }
+            ],
+            "stop": 1789453619398,
+            "nanos": 102988650,
+            "name": "sh: cat /home/ziad/spring-quarkus-perf-comparison/logs/lscpu.txt",
+            "start": 1789453619295,
+            "millis": 103
+          },
+          {
+            "stop": 1789453619398,
+            "nanos": 364616,
+            "name": "next",
+            "start": 1789453619398,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619399,
+            "nanos": 162665,
+            "name": "waiting in run queue",
+            "start": 1789453619398,
+            "millis": 1
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453619399,
+                "nanos": 51511,
+                "name": "invoke",
+                "start": 1789453619399,
+                "millis": 0
+              },
+              {
+                "stop": 1789453619503,
+                "nanos": 104651782,
+                "name": "await-callback",
+                "start": 1789453619399,
+                "millis": 104
+              }
+            ],
+            "stop": 1789453619503,
+            "nanos": 104735133,
+            "name": "sh: systemctl status firewalld > /home/ziad/spring-quarkus-perf-comparison/logs/firewalld-status.txt 2>&1 || true",
+            "start": 1789453619399,
+            "millis": 104
+          },
+          {
+            "stop": 1789453619504,
+            "nanos": 162853,
+            "name": "next",
+            "start": 1789453619503,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619504,
+            "nanos": 161266,
+            "name": "waiting in run queue",
+            "start": 1789453619504,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619506,
+            "nanos": 2263737,
+            "name": "download: /home/ziad/spring-quarkus-perf-comparison/logs/firewalld-status.txt ",
+            "start": 1789453619504,
+            "millis": 2
+          },
+          {
+            "stop": 1789453619506,
+            "nanos": 164093,
+            "name": "next",
+            "start": 1789453619506,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619506,
+            "nanos": 104491,
+            "name": "waiting in run queue",
+            "start": 1789453619506,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619506,
+            "nanos": 59071,
+            "name": "script-cmd: ensure-requirements",
+            "start": 1789453619506,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 199254,
+            "name": "next",
+            "start": 1789453619506,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 109704,
+            "name": "waiting in run queue",
+            "start": 1789453619507,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 72601,
+            "name": "ensure-requirements",
+            "start": 1789453619507,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 228654,
+            "name": "next",
+            "start": 1789453619507,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 98411,
+            "name": "waiting in run queue",
+            "start": 1789453619507,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 61251,
+            "name": "script-cmd: ensure-graalvm",
+            "start": 1789453619507,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 114881,
+            "name": "next",
+            "start": 1789453619507,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 101782,
+            "name": "waiting in run queue",
+            "start": 1789453619507,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619507,
+            "nanos": 8470,
+            "name": "ensure-graalvm",
+            "start": 1789453619507,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619508,
+            "nanos": 243520,
+            "name": "next",
+            "start": 1789453619507,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619508,
+            "nanos": 302465,
+            "name": "waiting in run queue",
+            "start": 1789453619508,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453619508,
+                "nanos": 45711,
+                "name": "invoke",
+                "start": 1789453619508,
+                "millis": 0
+              },
+              {
+                "stop": 1789453619608,
+                "nanos": 100454927,
+                "name": "await-callback",
+                "start": 1789453619508,
+                "millis": 100
+              }
+            ],
+            "stop": 1789453619608,
+            "nanos": 100544618,
+            "name": "sh: echo \"\"",
+            "start": 1789453619508,
+            "millis": 100
+          },
+          {
+            "stop": 1789453619609,
+            "nanos": 306665,
+            "name": "next",
+            "start": 1789453619608,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619609,
+            "nanos": 140943,
+            "name": "waiting in run queue",
+            "start": 1789453619609,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619609,
+            "nanos": 219164,
+            "name": "regex: ^$",
+            "start": 1789453619609,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619609,
+            "nanos": 65771,
+            "name": "next",
+            "start": 1789453619609,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619609,
+            "nanos": 97791,
+            "name": "waiting in run queue",
+            "start": 1789453619609,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619609,
+            "nanos": 221444,
+            "name": "script-cmd: sdk-select-java",
+            "start": 1789453619609,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619610,
+            "nanos": 191013,
+            "name": "next",
+            "start": 1789453619609,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619610,
+            "nanos": 112152,
+            "name": "waiting in run queue",
+            "start": 1789453619610,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619610,
+            "nanos": 4250,
+            "name": "sdk-select-java",
+            "start": 1789453619610,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619610,
+            "nanos": 124372,
+            "name": "next",
+            "start": 1789453619610,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619610,
+            "nanos": 157333,
+            "name": "waiting in run queue",
+            "start": 1789453619610,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453619610,
+                "nanos": 48260,
+                "name": "invoke",
+                "start": 1789453619610,
+                "millis": 0
+              },
+              {
+                "stop": 1789453619711,
+                "nanos": 100464252,
+                "name": "await-callback",
+                "start": 1789453619610,
+                "millis": 101
+              }
+            ],
+            "stop": 1789453619711,
+            "nanos": 100538223,
+            "name": "sh: echo true",
+            "start": 1789453619610,
+            "millis": 101
+          },
+          {
+            "stop": 1789453619711,
+            "nanos": 264664,
+            "name": "next",
+            "start": 1789453619711,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619711,
+            "nanos": 180144,
+            "name": "waiting in run queue",
+            "start": 1789453619711,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619711,
+            "nanos": 129202,
+            "name": "regex: true",
+            "start": 1789453619711,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619711,
+            "nanos": 76042,
+            "name": "next",
+            "start": 1789453619711,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619711,
+            "nanos": 104742,
+            "name": "waiting in run queue",
+            "start": 1789453619711,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619711,
+            "nanos": 67351,
+            "name": "script-cmd: sdkman-install",
+            "start": 1789453619711,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619712,
+            "nanos": 229114,
+            "name": "next",
+            "start": 1789453619711,
+            "millis": 1
+          },
+          {
+            "stop": 1789453619712,
+            "nanos": 112621,
+            "name": "waiting in run queue",
+            "start": 1789453619712,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619712,
+            "nanos": 5381,
+            "name": "sdkman-install",
+            "start": 1789453619712,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619712,
+            "nanos": 150662,
+            "name": "next",
+            "start": 1789453619712,
+            "millis": 0
+          },
+          {
+            "stop": 1789453619712,
+            "nanos": 101872,
+            "name": "waiting in run queue",
+            "start": 1789453619712,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453619713,
+                "nanos": 848194,
+                "name": "invoke",
+                "start": 1789453619712,
+                "millis": 1
+              },
+              {
+                "stop": 1789453620070,
+                "nanos": 356593915,
+                "name": "await-callback",
+                "start": 1789453619713,
+                "millis": 357
+              }
+            ],
+            "stop": 1789453620070,
+            "nanos": 357547491,
+            "name": "sh: sdk help",
+            "start": 1789453619712,
+            "millis": 358
+          },
+          {
+            "stop": 1789453620070,
+            "nanos": 548619,
+            "name": "next",
+            "start": 1789453620070,
+            "millis": 0
+          },
+          {
+            "stop": 1789453620070,
+            "nanos": 186923,
+            "name": "waiting in run queue",
+            "start": 1789453620070,
+            "millis": 0
+          },
+          {
+            "stop": 1789453620071,
+            "nanos": 721420,
+            "name": "regex: .*command not found",
+            "start": 1789453620070,
+            "millis": 1
+          },
+          {
+            "stop": 1789453620071,
+            "nanos": 237654,
+            "name": "next",
+            "start": 1789453620071,
+            "millis": 0
+          },
+          {
+            "stop": 1789453620071,
+            "nanos": 214433,
+            "name": "waiting in run queue",
+            "start": 1789453620071,
+            "millis": 0
+          },
+          {
+            "stop": 1789453620072,
+            "nanos": 88442,
+            "name": "log: Updating SDKMAN",
+            "start": 1789453620071,
+            "millis": 1
+          },
+          {
+            "stop": 1789453620072,
+            "nanos": 136322,
+            "name": "next",
+            "start": 1789453620072,
+            "millis": 0
+          },
+          {
+            "stop": 1789453620072,
+            "nanos": 171583,
+            "name": "waiting in run queue",
+            "start": 1789453620072,
+            "millis": 0
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453620072,
+                "nanos": 58051,
+                "name": "invoke",
+                "start": 1789453620072,
+                "millis": 0
+              },
+              {
+                "stop": 1789453620327,
+                "nanos": 254694704,
+                "name": "await-callback",
+                "start": 1789453620072,
+                "millis": 255
+              }
+            ],
+            "stop": 1789453620327,
+            "nanos": 254760365,
+            "name": "sh: sdk flush",
+            "start": 1789453620072,
+            "millis": 255
+          },
+          {
+            "stop": 1789453620327,
+            "nanos": 328506,
+            "name": "next",
+            "start": 1789453620327,
+            "millis": 0
+          },
+          {
+            "stop": 1789453620328,
+            "nanos": 578702,
+            "name": "waiting in run queue",
+            "start": 1789453620327,
+            "millis": 1
+          },
+          {
+            "timers": [
+              {
+                "stop": 1789453620328,
+                "nanos": 62591,
+                "name": "invoke",
+                "start": 1789453620328,
+                "millis": 0
+              },
+              {
+                "stop": 1789453620785,
+                "nanos": 457794339,
+                "name": "await-callback",
+                "start": 1789453620328,
+                "millis": 457
+              }
+            ],
+            "stop": 1789453620785,
+            "nanos": 457873930,
+            "name": "sh: sdk selfupdate force",
+            "start": 1789453620328,
+            "millis": 457
+          }
+        ],
+        "stop": 1789453620785,
+        "nanos": 2990920994,
+        "name": "test-runner-setup@target-host.",
+        "start": 1789453617795,
+        "millis": 2990
+      },
+      "scriptId": 1066,
+      "role": "test-runner",
+      "name": "test-runner-setup@target-host.",
+      "host": "target-host",
+      "script": "setup"
+    }
+  ],
+  "latches": [],
+  "state": {
+    "WRK_BIN": "${{LOAD_GEN_CMD_PREFIX}} jbang -R -XX:+UseNUMA wrk@hyperfoil",
+    "TESTS": [
+      "run-load-test",
+      "measure-rss",
+      "measure-time-to-first-request"
+    ],
+    "PROJ_REPO_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper",
+    "MONITOR_CMD_PREFIX": "taskset --cpu-list ${{config.resources.cpu.monitor}}",
+    "PAUSE_TIME": "20",
+    "APP_CMD_PREFIX": "taskset --cpu-list ${{config.resources.cpu.app}}",
+    "ENV": {"ABORTED": true},
+    "BUILDS_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/builds",
+    "SPRING4_BOOT_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot4",
+    "output": {
+      "timing": {"stop": "2026-09-15T06:27:01Z"},
+      "env": {
+        "host": {
+          "memory": "15Gi",
+          "os": "Ubuntu 26.04 LTS",
+          "kernel": "6.6.87.2-microsoft-standard-WSL2",
+          "cpu": "AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)",
+          "type": "",
+          "gpu": "Microsoft Corporation Basic Render Driver"
+        },
+        "run": {"host": {
+          "name": "LOCAL",
+          "user": "ziad",
+          "target": "LOCAL"
+        }}
+      },
+      "config": {
+        "jvm": {
+          "args": "-XX:+UseParallelGC",
+          "memory": "-Xms512m -Xmx512m",
+          "graalvm": {
+            "version": "25.0.2-graalce",
+            "home": ""
+          },
+          "version": "25.0.3-tem",
+          "home": ""
+        },
+        "num_iterations": "3",
+        "quarkus": {
+          "build_config_args": "",
+          "native_build_options": "",
+          "version": "3.32.2"
+        },
+        "repo": {
+          "scenario": "tuned",
+          "branch": "master",
+          "url": "https://github.com/hatahet/spring-quarkus-jooq-dapper.git"
+        },
+        "springboot3": {
+          "native_build_options": "",
+          "version": ""
+        },
+        "springboot4": {
+          "native_build_options": "",
+          "version": "4.1.0"
+        },
+        "resources": {
+          "cpu": {
+            "app": "0",
+            "1st_request": "10",
+            "otel": "7-9",
+            "monitor": "13",
+            "load_generator": "10-12",
+            "db": "4-6"
+          },
+          "app_cpus": "1"
+        },
+        "run": {
+          "dropOsFilesystemCaches": "true",
+          "useContainerHostNetwork": "false"
+        },
+        "units": {
+          "rss": {
+            "load": "MiB",
+            "startup": "MiB",
+            "firstRequest": "MiB"
+          },
+          "load": {
+            "throughputDensity": "tps per MiB",
+            "throughput": "tps",
+            "errors": {
+              "connectionErrors": "absolute number",
+              "requestTimeouts": "absolute number"
+            }
+          },
+          "timings": {
+            "build": "sec",
+            "startup": "ms"
+          }
+        },
+        "profiler": {
+          "name": "none",
+          "events": "cpu"
+        }
+      }
+    },
+    "LOAD_GEN_CMD_PREFIX": "taskset --cpu-list ${{config.resources.cpu.load_generator}}",
+    "SCRIPTS_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab",
+    "QUARKUS3_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/quarkus3",
+    "QUARKUS3_VIRTUAL_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/quarkus3-virtual",
+    "ASPNET10_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/aspnet10",
+    "REPO_DIR": "/home/ziad/spring-quarkus-perf-comparison",
+    "QUARKUS-PLATFORM-ARTIFACT-ID": "quarkus-bom",
+    "LOCAL": {
+      "cleanup": {"id=1194": {}},
+      "setup": {"id=1066": {}}
+    },
+    "TARGET_URL": "http://localhost:8080/fruits",
+    "ASYNC_PROFILER_DIR": "/home/ziad/async-profiler",
+    "BASE_DIR": "/home/ziad",
+    "PROJ_REPO_NAME": "spring-quarkus-jooq-dapper",
+    "os": "linux",
+    "HELPER_SCRIPTS_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab/scripts",
+    "RUNTIMECMDS": [
+      {
+        "updateScript": "update-quarkus-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar",
+        "updateVersion": "${{config.quarkus.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests",
+        "name": "quarkus3-jvm",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{QUARKUS3_DIR}}",
+        "logFileStartedRegex": ".*quarkus3.+started in.*"
+      },
+      {
+        "updateScript": "update-quarkus-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/quarkus-app/app.aot -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar",
+        "updateVersion": "${{config.quarkus.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean verify -Dquarkus.package.jar.aot.enabled=true -Dsurefire.excludes='**/*'",
+        "name": "quarkus3-leyden",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{QUARKUS3_DIR}}",
+        "logFileStartedRegex": ".*quarkus3.+started in.*"
+      },
+      {
+        "updateScript": "update-quarkus-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar",
+        "updateVersion": "${{config.quarkus.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests",
+        "name": "quarkus3-virtual",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{QUARKUS3_VIRTUAL_DIR}}",
+        "logFileStartedRegex": ".*quarkus3.+started in.*"
+      },
+      {
+        "updateScript": "update-quarkus-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/quarkus-app/app.aot -jar ${{RUNTIME_BUILD_DIR}}/quarkus-app/quarkus-run.jar",
+        "updateVersion": "${{config.quarkus.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean verify -Dquarkus.package.jar.aot.enabled=true -Dsurefire.excludes='**/*'",
+        "name": "quarkus3-virtual-leyden",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{QUARKUS3_VIRTUAL_DIR}}",
+        "logFileStartedRegex": ".*quarkus3.+started in.*"
+      },
+      {
+        "updateScript": "update-quarkus-version",
+        "runCmd": "${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/quarkus3-runner ${{config.jvm.memory}}",
+        "updateVersion": "${{config.quarkus.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw ${{config.quarkus.build_config_args}} clean package -DskipTests -Pnative ${{config.quarkus.native_build_options}}",
+        "name": "quarkus3-native",
+        "buildRequiresTestServices": false,
+        "type": "native",
+        "dir": "${{QUARKUS3_DIR}}",
+        "logFileStartedRegex": ".*quarkus3.+started in.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar",
+        "updateVersion": "${{config.springboot3.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests",
+        "name": "spring3-jvm",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{SPRING3_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot3Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar",
+        "updateVersion": "${{config.springboot3.version}}",
+        "buildCmd": "./mvnw clean package -DskipTests && java -Djarmode=tools -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar extract --destination ${{SPRING3_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING3_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar",
+        "name": "spring3-leyden",
+        "buildRequiresTestServices": true,
+        "type": "jvm",
+        "dir": "${{SPRING3_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot3Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar",
+        "updateVersion": "${{config.springboot3.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true",
+        "name": "spring3-virtual",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{SPRING3_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot3Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar",
+        "updateVersion": "${{config.springboot3.version}}",
+        "buildCmd": "./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true && java -Djarmode=tools -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar extract --destination ${{SPRING3_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING3_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -Dspring.threads.virtual.enabled=true -jar ${{SPRING3_BOOT_DIR}}/target/springboot3.jar",
+        "name": "spring3-virtual-leyden",
+        "buildRequiresTestServices": true,
+        "type": "jvm",
+        "dir": "${{SPRING3_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot3Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -Dspring.aot.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot3.jar",
+        "updateVersion": "${{config.springboot3.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw clean compile spring-boot:process-aot package -DskipTests",
+        "name": "spring3-jvm-aot",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{SPRING3_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot3Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/springboot3 ${{config.jvm.memory}}",
+        "updateVersion": "${{config.springboot3.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw clean -Pnative -DskipTests native:compile package ${{config.springboot3.native_build_options}}",
+        "name": "spring3-native",
+        "buildRequiresTestServices": false,
+        "type": "native",
+        "dir": "${{SPRING3_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot3Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar",
+        "updateVersion": "${{config.springboot4.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests",
+        "name": "spring4-jvm",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{SPRING4_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot4Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar",
+        "updateVersion": "${{config.springboot4.version}}",
+        "buildCmd": "./mvnw clean package -DskipTests && java -Djarmode=tools -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar extract --destination ${{SPRING4_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING4_BOOT_DIR}}/target/app.aot -Dspring.context.exit=onRefresh -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar",
+        "name": "spring4-leyden",
+        "buildRequiresTestServices": true,
+        "type": "jvm",
+        "dir": "${{SPRING4_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot4Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar",
+        "updateVersion": "${{config.springboot4.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true",
+        "name": "spring4-virtual",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{SPRING4_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot4Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -XX:AOTCache=${{RUNTIME_BUILD_DIR}}/app.aot -Dspring.threads.virtual.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar",
+        "updateVersion": "${{config.springboot4.version}}",
+        "buildCmd": "./mvnw clean package -DskipTests -Dspring.threads.virtual.enabled=true && java -Djarmode=tools -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar extract --destination ${{SPRING4_BOOT_DIR}}/target/aot-app && java -XX:AOTCacheOutput=${{SPRING4_BOOT_DIR}}/target/app.aot -Dspring.threads.virtual.enabled=true -Dspring.context.exit=onRefresh -jar ${{SPRING4_BOOT_DIR}}/target/springboot4.jar",
+        "name": "spring4-virtual-leyden",
+        "buildRequiresTestServices": true,
+        "type": "jvm",
+        "dir": "${{SPRING4_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot4Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{BASE_JAVA_CMD}} -Dspring.aot.enabled=true -jar ${{RUNTIME_BUILD_DIR}}/springboot4.jar",
+        "updateVersion": "${{config.springboot4.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw clean compile spring-boot:process-aot package -DskipTests",
+        "name": "spring4-jvm-aot",
+        "buildRequiresTestServices": false,
+        "type": "jvm",
+        "dir": "${{SPRING4_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot4Application in.+seconds.*"
+      },
+      {
+        "updateScript": "update-spring-boot-version",
+        "runCmd": "${{APP_CMD_PREFIX}} ${{RUNTIME_BUILD_DIR}}/springboot4 ${{config.jvm.memory}}",
+        "updateVersion": "${{config.springboot4.version}}",
+        "buildCmd": "${{APP_CMD_PREFIX}} ./mvnw clean -Pnative -DskipTests native:compile package ${{config.springboot4.native_build_options}}",
+        "name": "spring4-native",
+        "buildRequiresTestServices": false,
+        "type": "native",
+        "dir": "${{SPRING4_BOOT_DIR}}",
+        "logFileStartedRegex": ".*Started SpringBoot4Application in.+seconds.*"
+      },
+      {
+        "updateScript": "prepare-dotnet-runtime",
+        "runCmd": "${{APP_CMD_PREFIX}} dotnet ${{RUNTIME_BUILD_DIR}}/aspnet10.dll",
+        "updateVersion": "10",
+        "buildCmd": "${{APP_CMD_PREFIX}} dotnet publish src/AspNet10.csproj --configuration Release --no-restore --nologo --output target -t:Rebuild",
+        "name": "aspnet10",
+        "buildRequiresTestServices": false,
+        "type": "dotnet",
+        "dir": "${{ASPNET10_DIR}}",
+        "logFileStartedRegex": ".*Now listening on:.+8080.*"
+      }
+    ],
+    "env": {
+      "host": {
+        "memory": "15Gi",
+        "os": "Ubuntu 26.04 LTS",
+        "kernel": "6.6.87.2-microsoft-standard-WSL2",
+        "cpu": "AMD Ryzen 7 9800X3D 8-Core Processor (16 cpus)",
+        "type": "",
+        "gpu": "Microsoft Corporation Basic Render Driver"
+      },
+      "run": {"host": {
+        "name": "LOCAL",
+        "user": "ziad",
+        "target": "LOCAL"
+      }}
+    },
+    "BASE_JAVA_CMD": "${{APP_CMD_PREFIX}} java ${{config.jvm.memory}} ${{config.jvm.args}} ${{PROFILER_JVM_ARGS}}",
+    "ASYNC_PROFILER": "async-profiler",
+    "HYPERFOIL_LOGS_DIR": "/home/ziad/spring-quarkus-perf-comparison/logs/hyperfoil",
+    "PROFILER_JVM_ARGS": "",
+    "METRICS_DIR": "/tmp",
+    "RUNTIMES": [
+      "quarkus3-jvm",
+      "quarkus3-virtual",
+      "aspnet10"
+    ],
+    "SPRING3_BOOT_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/springboot3",
+    "LOAD_TESTS_SCRIPTS_DIR": "/home/ziad/spring-quarkus-perf-comparison/spring-quarkus-jooq-dapper/scripts/perf-lab/load-tests",
+    "config": {
+      "jvm": {
+        "args": "-XX:+UseParallelGC",
+        "memory": "-Xms512m -Xmx512m",
+        "graalvm": {
+          "version": "25.0.2-graalce",
+          "home": ""
+        },
+        "version": "25.0.3-tem",
+        "home": ""
+      },
+      "num_iterations": "3",
+      "quarkus": {
+        "build_config_args": "",
+        "native_build_options": "",
+        "version": "3.32.2"
+      },
+      "repo": {
+        "scenario": "tuned",
+        "branch": "master",
+        "url": "https://github.com/hatahet/spring-quarkus-jooq-dapper.git"
+      },
+      "springboot3": {
+        "native_build_options": "",
+        "version": ""
+      },
+      "springboot4": {
+        "native_build_options": "",
+        "version": "4.1.0"
+      },
+      "resources": {
+        "cpu": {
+          "app": "0",
+          "1st_request": "10",
+          "otel": "7-9",
+          "monitor": "13",
+          "load_generator": "10-12",
+          "db": "4-6"
+        },
+        "app_cpus": "1"
+      },
+      "run": {
+        "dropOsFilesystemCaches": "true",
+        "useContainerHostNetwork": "false"
+      },
+      "units": {
+        "rss": {
+          "load": "MiB",
+          "startup": "MiB",
+          "firstRequest": "MiB"
+        },
+        "load": {
+          "throughputDensity": "tps per MiB",
+          "throughput": "tps",
+          "errors": {
+            "connectionErrors": "absolute number",
+            "requestTimeouts": "absolute number"
+          }
+        },
+        "timings": {
+          "build": "sec",
+          "startup": "ms"
+        }
+      },
+      "profiler": {
+        "name": "none",
+        "events": "cpu"
+      }
+    }
+  },
+  "version": "0.0.1"
+}

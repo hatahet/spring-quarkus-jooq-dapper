@@ -34,9 +34,7 @@ scripts:
       then:
         - download: ${{REPO_DIR}}/logs/lscpu.txt
         - sh: cat ${{REPO_DIR}}/logs/lscpu.txt
-    - script: sudo
-      with:
-        command: systemctl status firewalld > ${{REPO_DIR}}/logs/firewalld-status.txt 2>&1
+    - sh: systemctl status firewalld > ${{REPO_DIR}}/logs/firewalld-status.txt 2>&1 || true
     - download: ${{REPO_DIR}}/logs/firewalld-status.txt
 
   capture-system-info-macos:

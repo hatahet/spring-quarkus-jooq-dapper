@@ -1,0 +1,10 @@
+{
+  "id" : "0000",
+  "benchmark" : "load-test-fixed-threads-read-all",
+  "params" : { },
+  "startTime" : 1789362400672,
+  "terminateTime" : 1789362580686,
+  "cancelled" : false,
+  "description" : "spring4-jvm-0",
+  "errors" : [ ]
+}

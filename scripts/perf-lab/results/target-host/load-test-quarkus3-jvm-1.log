@@ -1,0 +1,34 @@
+__  ____  __  _____   ___  __ ____  ______ 
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/ 
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \   
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/   
+2026-09-14 00:35:46,305 WARN  [io.micrometer.core.instrument.MeterRegistry] (main) This Gauge has been already registered (MeterId{name='netty.eventexecutor.workers', tags=[]}), the registration will be ignored. Note that subsequent logs will be logged at debug level.
+2026-09-14 00:35:46,406 INFO  [io.quarkus] (main) quarkus3 1.0 on JVM (powered by Quarkus 3.32.2) started in 1.164s. Listening on: http://0.0.0.0:8080
+2026-09-14 00:35:46,406 INFO  [io.quarkus] (main) Profile prod activated. 
+2026-09-14 00:35:46,407 INFO  [io.quarkus] (main) Installed features: [agroal, cdi, config-yaml, hibernate-validator, jdbc-postgresql, micrometer, narayana-jta, opentelemetry, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+2026-09-14 00:35:51,104 INFO  [org.jooq.Constants] (executor-thread-95) 
+                                      
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@  @@        @@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@        @@@@@@@@@@
+@@@@@@@@@@@@@@@@  @@  @@    @@@@@@@@@@
+@@@@@@@@@@  @@@@  @@  @@    @@@@@@@@@@
+@@@@@@@@@@        @@        @@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@        @@        @@@@@@@@@@
+@@@@@@@@@@    @@  @@  @@@@  @@@@@@@@@@
+@@@@@@@@@@    @@  @@  @@@@  @@@@@@@@@@
+@@@@@@@@@@        @@  @  @  @@@@@@@@@@
+@@@@@@@@@@        @@        @@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  Thank you for using jOOQ 3.19.22 (Build date: 2025-04-02T12:42:59Z)
+                                      
+2026-09-14 00:35:51,105 INFO  [org.jooq.Constants] (executor-thread-95) 
+
+jOOQ tip of the day: Different jOOQ editions support multiple RDBMS versions. Check out the complete list here: https://www.jooq.org/download/support-matrix
+
+2026-09-14 00:35:51,262 INFO  [org.jooq.impl.DefaultExecuteContext.logVersionSupport] (executor-thread-12) Version                  : Database version is supported by dialect POSTGRES: 17.9 (Debian 17.9-1.pgdg13+1)
+2026-09-14 00:38:57,473 INFO  [io.quarkus] (Shutdown thread) quarkus3 stopped in 5.037s

@@ -64,6 +64,9 @@ app.MapControllers();
 app.MapHealthChecks("/health");
 app.MapPrometheusScrapingEndpoint("/metrics");
 
+var isServerGc = System.Runtime.GCSettings.IsServerGC;
+Console.WriteLine($"Is Server GC enabled: {isServerGc}");
+
 app.Run();
 
 public partial class Program;
