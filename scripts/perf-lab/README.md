@@ -82,7 +82,7 @@ The script has these dependencies:
 | `--quarkus-version` | `<QUARKUS_VERSION>` | The Quarkus version to use<br/>**NOTE:** Its a good practice to set this manually to ensure proper version | Whatever version is set in pom.xml of the Quarkus app |
 | `--repo-branch` | `<SCM_REPO_BRANCH>` | The branch in the SCM repo | `main` |
 | `--repo-url` | `<SCM_REPO_URL>` | The SCM repo url | `https://github.com/quarkusio/spring-quarkus-perf-comparison.git` |
-| `--runtimes` | `<RUNTIMES>` | The runtimes to test, separated by commas<br/>Accepted values (1 or more of): `quarkus3-jvm`, `quarkus3-leyden`, `quarkus3-virtual`, `quarkus3-virtual-leyden`, `quarkus3-native`, `spring3-jvm`, `spring3-leyden`, `spring3-virtual`, `spring3-virtual-leyden`, `spring3-jvm-aot`, `spring3-native`, `spring4-jvm`, `spring4-leyden`, `spring4-virtual`, `spring4-virtual-leyden`, `spring4-jvm-aot`, `spring4-native`, `aspnet10` | See [Available Runtimes](#available-runtimes) for defaults |
+| `--runtimes` | `<RUNTIMES>` | The runtimes to test, separated by commas<br/>Accepted values (1 or more of): `quarkus3-jvm`, `quarkus3-leyden`, `quarkus3-virtual`, `quarkus3-virtual-leyden`, `quarkus3-native`, `spring3-jvm`, `spring3-leyden`, `spring3-virtual`, `spring3-virtual-leyden`, `spring3-jvm-aot`, `spring3-native`, `spring4-jvm`, `spring4-leyden`, `spring4-virtual`, `spring4-virtual-leyden`, `spring4-jvm-aot`, `spring4-native`, `helidon-se`, `helidon-mp`, `aspnet10` | See [Available Runtimes](#available-runtimes) for defaults |
 | `--run-identifier` | `<RUN_IDENTIFIER>` | An optional identifier for this run to be added to the run output | |
 | `--scenario` | `<SCENARIO>` | The scenario to run<br/>Accepted values: `tuned`, `ootb`<br/>`tuned` applies various performance tuning settings to the JVM and OS (generally from the `main` branch). `ootb` runs with out-of-the-box/default settings (generally from the `ootb` branch). | Depends on `--repo-branch`: `main` → `tuned`, `ootb` → `ootb`, anything else → `tuned` |
 | `--springboot3-version` | `<SPRING_BOOT3_VERSION>` | The Spring Boot 3.x version to use<br/>**NOTE:** Its a good practice to set this manually to ensure proper version | Whatever version is set in pom.xml of the Spring Boot 3 app |
@@ -241,7 +241,11 @@ The `--runtimes` option accepts one or more of the following values (comma-separ
 - `spring4-virtual-leyden` - [Spring Boot 4](../../springboot4) on JVM with virtual threads and [Project Leyden](https://openjdk.org/projects/leyden/) (CDS/AOT)
 - `spring4-jvm-aot` - [Spring Boot 4](../../springboot4) on JVM with Spring AOT compilation
 - `spring4-native` - [Spring Boot 4](../../springboot4) native executable
+- `helidon-se` - [Helidon SE](../../helidon-se) on JVM with virtual threads, jOOQ, and HikariCP
+- `helidon-mp` - [Helidon MP](../../helidon-mp) on JVM with virtual threads, jOOQ, and CDI-managed HikariCP
 - `aspnet10` - [ASP.NET Core](../../aspnet10) on .NET 10 with Dapper
+
+Helidon uses the version pinned in each module’s POM. Both pools have a maximum of 50 connections, and the cached build includes the JAR plus its `libs/` dependencies. Select `--runtimes helidon-se,helidon-mp` to run only the new frameworks.
 
 **Default:** All runtimes except `spring3-jvm-aot` and `spring4-jvm-aot` are tested. To include AOT variants, pass them explicitly via `--runtimes`. The JVM profilers are not supported for `aspnet10`; use `--profiler none` when it is selected.
 

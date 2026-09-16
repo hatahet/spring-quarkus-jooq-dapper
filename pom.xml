@@ -14,5 +14,7 @@
         <module>quarkus3-spring-compatibility</module>
         <module>springboot3</module>
         <module>springboot4</module>
+        <module>helidon-se</module>
+        <module>helidon-mp</module>
     </modules>
 </project>

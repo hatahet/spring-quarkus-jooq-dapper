@@ -1,0 +1,24 @@
+server:
+  port: 8080
+datasource:
+  url: jdbc:postgresql://localhost:5432/fruits
+  username: fruits
+  password: fruits
+  maximum-pool-size: 50
+otel:
+  sdk:
+    disabled: false
+  service:
+    name: helidon-se
+  traces:
+    sampler: parentbased_traceidratio
+    sampler.arg: 0.1
+    exporter: otlp
+  exporter:
+    otlp:
+      protocol: http/protobuf
+      endpoint: http://localhost:4318
+  metrics:
+    exporter: none
+  logs:
+    exporter: none

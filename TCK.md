@@ -20,6 +20,8 @@ The application models fruits sold by stores with a per-store price.
 | `springboot4` | Spring Boot 4 / JVM | jOOQ |
 | `quarkus3` | Quarkus 3 / JVM or native | jOOQ |
 | `quarkus3-virtual` | Quarkus 3 / JVM virtual threads | jOOQ |
+| `helidon-se` | Helidon SE 4 / JVM virtual threads | jOOQ / HikariCP |
+| `helidon-mp` | Helidon MP 4 / JVM virtual threads | jOOQ / HikariCP |
 | `aspnet10` | ASP.NET Core / .NET 10 | Dapper |
 
 `quarkus3` is the Java reference implementation. `aspnet10` is the .NET reference implementation. The `quarkus3-spring-compatibility` module is a legacy ORM-based compatibility example and is excluded from this comparison set.

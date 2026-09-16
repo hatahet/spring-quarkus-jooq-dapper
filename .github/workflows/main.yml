@@ -137,6 +137,8 @@ jobs:
           - { "name": "springboot4-leyden", "dir": "springboot4", "build-args": "", "run-args": "-XX:AOTCache=target/app.aot", "app-jar": "target/springboot4.jar", "isSpringLeyden": true }
           - { "name": "springboot4-virtual", "dir": "springboot4", "build-args": "-Dspring.threads.virtual.enabled=true", "run-args": "", "app-jar": "target/springboot4.jar", "isSpringLeyden": false }
           - { "name": "springboot4-virtual-leyden", "dir": "springboot4", "build-args": "-Dspring.threads.virtual.enabled=true", "run-args": "-XX:AOTCache=target/app.aot", "app-jar": "target/springboot4.jar", "isSpringLeyden": true }
+          - { "name": "helidon-se", "dir": "helidon-se", "build-args": "", "run-args": "", "app-jar": "target/helidon-se.jar", "isSpringLeyden": false }
+          - { "name": "helidon-mp", "dir": "helidon-mp", "build-args": "", "run-args": "", "app-jar": "target/helidon-mp.jar", "isSpringLeyden": false }
           - { "name": "quarkus3", "dir": "quarkus3", "build-args": "", "run-args": "", "app-jar": "target/quarkus-app/quarkus-run.jar", "isSpringLeyden": false }
           - { "name": "quarkus3-leyden", "dir": "quarkus3", "build-args": "-Dquarkus.package.jar.aot.enabled=true", "run-args": "-XX:AOTCache=target/quarkus-app/app.aot", "app-jar": "target/quarkus-app/quarkus-run.jar", "isSpringLeyden": false }
           - { "name": "quarkus3-virtual", "dir": "quarkus3-virtual", "build-args": "", "run-args": "", "app-jar": "target/quarkus-app/quarkus-run.jar", "isSpringLeyden": false }

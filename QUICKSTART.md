@@ -1,9 +1,9 @@
 # Run the jOOQ / Dapper comparison
 
-The ZIP contains the complete modified source project, benchmark scripts, and
-prebuilt applications for the five implementations below. No compilation is
-needed to run the included artifacts. Do not move the Quarkus runner JARs or the
-ASP.NET DLL away from their accompanying dependencies.
+The comparison set contains seven implementations and a shared benchmark harness. If you
+are using a ZIP with prebuilt applications, you can run its included artifacts
+directly. Build any missing artifacts using the commands below. Keep the Quarkus
+and Helidon JARs and the ASP.NET DLL beside their accompanying dependencies.
 
 ## Prerequisites
 
@@ -33,6 +33,8 @@ Extract the ZIP and change into `spring-quarkus-jooq-dapper`. From that director
 ./stress.sh springboot4/target/springboot4.jar
 ./stress.sh quarkus3/target/quarkus-app/quarkus-run.jar
 ./stress.sh quarkus3-virtual/target/quarkus-app/quarkus-run.jar
+./stress.sh helidon-se/target/helidon-se.jar
+./stress.sh helidon-mp/target/helidon-mp.jar
 ./stress.sh aspnet10/target/aspnet10.dll
 ```
 
@@ -63,8 +65,10 @@ To inspect a command without launching an application or touching containers:
 Java (from the project root):
 
 ```sh
-./mvnw -pl springboot3,springboot4,quarkus3,quarkus3-virtual -DskipTests clean package
+./mvnw -pl springboot3,springboot4,quarkus3,quarkus3-virtual,helidon-se,helidon-mp -DskipTests clean package
 ```
+
+Build the Helidon modules before running them if your archive does not contain their artifacts. Keep each Helidon JAR beside its `target/libs/` directory. Both use virtual threads and HikariCP pools capped at 50 connections.
 
 ASP.NET (requires the .NET 10 SDK):
 
@@ -77,7 +81,14 @@ but it still uses ORM persistence and has no prebuilt artifact in this ZIP.
 
 ## Verification
 
-Java package builds and Spring AOT builds were checked, as were .NET publishing,
-application startup, and the .NET HTTP tests. The stress-script command routing
-and archive contents were checked. Full container-backed stress runs and
-database integration tests have not been run in the packaging environment.
+Run the Helidon HTTP and PostgreSQL repository tests, then check the packaged applications:
+
+```sh
+./mvnw -pl helidon-se,helidon-mp verify
+python3 scripts/tests/helidon-smoke-test.py
+```
+
+The smoke check verifies API responses, validation, concurrent reads, health,
+metrics, exported traces, the connection limit, and pool shutdown. It uses an
+isolated PostgreSQL container and a local telemetry receiver. Docker, Python 3,
+and Java 21+ are required.

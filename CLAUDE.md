@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Performance benchmarking suite comparing Spring Boot, Quarkus, and ASP.NET Core. The goal is like-for-like comparisons using equivalent domain models, REST endpoints, PostgreSQL data, and SQL access patterns.
+Performance benchmarking suite comparing Spring Boot, Quarkus, Helidon SE/MP, and ASP.NET Core. The goal is like-for-like comparisons using equivalent domain models, REST endpoints, PostgreSQL data, and SQL access patterns.
 
 ## Modules
 
@@ -13,6 +13,8 @@ Performance benchmarking suite comparing Spring Boot, Quarkus, and ASP.NET Core.
 | `quarkus3/` | Quarkus 3.x | Quarkus REST, jOOQ |
 | `quarkus3-virtual/` | Quarkus 3.x | jOOQ, virtual threads variant |
 | `quarkus3-spring-compatibility/` | Quarkus 3.x | Legacy ORM-based Spring compatibility variant |
+| `helidon-se/` | Helidon SE 4.x | jOOQ, HikariCP, virtual threads |
+| `helidon-mp/` | Helidon MP 4.x | jOOQ, CDI-managed HikariCP, virtual threads |
 | `aspnet10/` | ASP.NET Core, .NET 10 | Dapper, Npgsql |
 
 All comparison modules share the same Fruit/Store/Address domain, DTO shape, and REST contract.
@@ -65,7 +67,7 @@ Located in `scripts/`:
 
 - Application code must maintain parity across all modules (same domain, same endpoints, same behavior)
 - Changes to architecture (e.g., virtual threads) must be applied to all modules
-- Config files use YAML (`application.yml`) in all modules
+- Config files use YAML (`application.yml` or Helidon’s `application.yaml`) in all modules
 - `.gitignore` excludes `target/`, IDE files, and `.claude/`
 
 ## Things to keep in mind

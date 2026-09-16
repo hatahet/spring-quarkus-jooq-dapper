@@ -1,6 +1,6 @@
 # spring-quarkus-perf-comparison
 
-This application is designed to allow like-for-like performance comparisons between Spring Boot, Quarkus, and ASP.NET Core.
+This application is designed to allow like-for-like performance comparisons between Spring Boot, Quarkus, Helidon SE, Helidon MP, and ASP.NET Core.
 
 ## Guiding principles 
 
@@ -57,8 +57,14 @@ This project contains the following modules:
     - A Quarkus 3.x version of the application using Virtual Threads
 - [quarkus3-spring-compatibility](quarkus3-spring-compatibility)
     - A Quarkus 3.x version of the application using the Spring compatibility layer. You can also recreate this application from the spring application using [a few manual steps](spring-conversion.md) or by running the automated [`spring-conversion.sh`](scripts/spring-conversion.sh) script.
+- [helidon-se](helidon-se)
+    - Helidon SE with jOOQ and HikariCP (50 connections)
+- [helidon-mp](helidon-mp)
+    - Helidon MP with jOOQ and a CDI-managed HikariCP pool (50 connections)
 - [aspnet10](aspnet10)
     - An ASP.NET Core implementation targeting .NET 10 and using Dapper
+
+Helidon 4 uses virtual threads in both SE and MP. Compare them with the Spring and Quarkus virtual-thread variants when evaluating thread-model parity. Helidon JARs require the adjacent `target/libs/` directory.
 
 The Spring compatibility module remains a legacy ORM-based variant and is not part of the jOOQ/Dapper comparison set.
  
@@ -151,6 +157,8 @@ how many requests the applications can handle over a short period of time.
 scripts/stress.sh quarkus3/target/quarkus-app/quarkus-run.jar
 scripts/stress.sh quarkus3-spring-compatibility/target/quarkus-app/quarkus-run.jar
 scripts/stress.sh springboot3/target/springboot3.jar
+scripts/stress.sh helidon-se/target/helidon-se.jar
+scripts/stress.sh helidon-mp/target/helidon-mp.jar
 ```
 
 For each test, you should see output like 
