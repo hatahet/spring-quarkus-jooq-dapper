@@ -90,7 +90,7 @@ function _date() {
   done
   # Record the timestamp when we successfully got a 200 response
   _date > "$END_TS_FILE"
-) 2>/dev/null &
+) &
 CURL_PID=$!
 
 # Record start time and launch the application.
@@ -104,7 +104,20 @@ APP_PID=$!
 trap "kill -15 $APP_PID $CURL_PID 2>/dev/null; wait $APP_PID 2>/dev/null || true; rm -f $END_TS_FILE" EXIT
 
 # Wait for the client loop to get a successful response
-wait $CURL_PID 2>/dev/null || true
 
-TTFR=$(($(cat "$END_TS_FILE") - ts))
+if wait "$CURL_PID"; then
+    :
+else
+    poll_status=$?
+    echo "TTFR polling process failed: exit $poll_status" >&2
+    exit "$poll_status"
+fi
+
+end_ts=$(cat "$END_TS_FILE")
+if [[ ! "$end_ts" =~ ^[0-9]+$ ]]; then
+    echo "TTFR polling produced no valid end timestamp" >&2
+    exit 1
+fi
+
+TTFR=$((end_ts - ts))
 echo "TTFR=${TTFR} ns"
